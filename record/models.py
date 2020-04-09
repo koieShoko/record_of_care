@@ -46,8 +46,8 @@ class Resident(models.Model):
 
 
 class Staff(User):
-    full_name     = models.CharField(verbose_name="名前",max_length=128)
-    kana_full_name= models.CharField(verbose_name="フリガナ",max_length=128)
+    kana_first_name= models.CharField(verbose_name="姓（かな）",max_length=128)
+    kana_last_name= models.CharField(verbose_name="名（かな）",max_length=128)
     DEPARTMENT_CHOICES = (#(保存する値,表示)
         ("1","1階"),
         ("2","2階"),
