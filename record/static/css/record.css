@@ -1,0 +1,22 @@
+.page-header{
+    margin-top:0;
+    padding:30px 30px 10px 30px;
+    font-size:10px;
+    border-bottom:1px solid #AAAAAA;
+    
+}
+
+a{
+    font-size:20px;
+    color:#333333;
+}
+
+.main{
+    margin-top:50px;
+}
+
+body{
+    color:#333333;
+    background-color:#ffffff;
+
+}
