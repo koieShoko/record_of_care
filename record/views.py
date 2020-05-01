@@ -4,7 +4,7 @@ from .forms import MealRecordForm
 from django.utils import timezone
 from record.models import Record
 from django.shortcuts import redirect
-from .translate import WordInfo, IikaeTango, Yomikomi, Translater, Kaigokiroku
+from .translate import *
 import csv
 
 def residents_list(request):
@@ -28,11 +28,8 @@ def meal_record_translate(request,pk):
 #    string1=string.replace('開口','口の開き')
 #    translated_string=string1.replace('良好','よい')
     string=Record.objects.get(pk=pk).notice
-    with open("/home/jinisuke55/record_of_care/record/string.csv","w") as f:
-        writer=csv.writer(f)
-        writer.writerow([string])
-    kiroku=Kaigokiroku()
-    translated_string=kiroku.translatedWords
+    kiroku=Translater(string)
+    translated_string=kiroku.translated_text
     #translated_string=string.replace("仰臥位","上を見て寝る姿勢")
     return render(request, 'record/meal_record_translated.html', {'string':string,'translated_string':translated_string})
 

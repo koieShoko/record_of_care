@@ -1,5 +1,4 @@
-import csv
-import sys
+
 
 #2つの文の品詞情報の比較をしたいけど
 #MeCabは同時に複数のTaggerを持てない（上書きされる）ので
@@ -18,7 +17,7 @@ class WordInfo():
 			surfaceStr=node.surface
 			self.infoTupleList.append((surfaceStr,infoStr))
 			node=node.next
-
+		
 
 
 class IikaeTango():
@@ -47,6 +46,9 @@ class IikaeTango():
 		#相違点が1カ所の場合だけ辞書に本登録する
 		if count==1:
 			self.iikaeDict=dict(self.words)
+		with open('/home/jinisuke55/record_of_care/record//iikae_dict.csv','w') as f:
+			writer=csv.writer(f)
+			writer.writerow(['{0},{1}'.format(x.values(),x.keys()) for x in self.iikaeDict])
 
 
 
@@ -77,9 +79,10 @@ class Yomikomi():
 				del self.iikaeDict[x]
 
 
+
 #text="所により大雨によって"
 class Translater(WordInfo):
-	def __init__(self,text):
+	def  __init__(self,text):
 		super().__init__(text)
 		i=0
 		textInfo=self.infoTupleList
@@ -91,7 +94,7 @@ class Translater(WordInfo):
 		sahenList=[]
 		with open(path1) as f:
 			rows=csv.reader(f)
-			sahenList+=["".join(x) for x in rows]
+			sahenList+=["".join(x)  for x in rows]
 		#介護用語のサ変辞書
 		
 		#介護の一般名詞辞書
@@ -99,7 +102,9 @@ class Translater(WordInfo):
 		kaigoDict={}
 		with open(path2) as f:
 			rows=csv.reader(f)
-			kaigoDict.update(dict([row or row in rows]))
+			kaigoDict.update(dict([row  for row in rows]))
+		
+		
 		#言いかえ
 		while i < len(textInfo)-1:#最後から二番目まで
 			f1=textInfo[i][1]#feature
@@ -116,29 +121,26 @@ class Translater(WordInfo):
 				s1=s1+"する"
 				del self.infoTupleList[i+1]
 			else:
-				pass
-			
-			if s1 in kaigoDict:
-				self.infoTupleList[i]=(kaigoDict[s1],"名詞,一般,*,*,*,*,-,-,-")
-			elif "助詞,副助詞,*,*,*,*,のみ,ノミ,ノミ" in f1:
-				self.infoTupleList[i]=("だけ","助詞,副助詞,*,*,*,*,だけ,ダケ,ダケ")
-			elif "助詞,格助詞,一般,*,*,*,にて,ニテ,ニテ" in f1:
-				self.infoTupleList[i]=('によって', '助詞,格助詞,連語,*,*,*,によって,ニヨッテ,ニヨッテ' )
-			elif ('動詞,自立,*,*,五段・ラ行,連用形,なる,ナリ,ナリ' == f1) and ( "、" in f2):
-				self.infoTupleList[i]=('なっ', '動詞,自立,*,*,五段・ラ行,連用タ接続,なる,ナッ,ナッ')
-				self.infoTupleList.insert (i+1,('て', '助詞,接続助詞,*,*,*,*,て,テ,テ'))
-			elif ('名詞,非自立,助動詞語幹,*,*,*,よう,ヨウ,ヨー' in f1) and not("に" in f2) and not("だ" in f2):
-				self.infoTupleList[i]=('よう','名詞,非自立,助動詞語幹,*,*,*,よう,ヨウ,ヨー')
-				self.infoTupleList.insert (i+1,('に', '助詞,副詞化,*,*,*,*,に,ニ,ニ'))
-			elif ('助詞,格助詞,連語,*,*,*,により,ニヨリ,ニヨリ' in f1):
-				self.infoTupleList[i]=('によって', '助詞,格助詞,連語,*,*,*,によって,ニヨッテ,ニヨッテ' )
-			
+				if s1 in kaigoDict:
+					self.infoTupleList[i]=(kaigoDict[s1],"名詞,一般,*,*,*,*,-,-,-")
+				elif "助詞,副助詞,*,*,*,*,のみ,ノミ,ノミ" in f1:
+					self.infoTupleList[i]=("だけ","助詞,副助詞,*,*,*,*,だけ,ダケ,ダケ")
+				elif "助詞,格助詞,一般,*,*,*,にて,ニテ,ニテ" in f1:
+					self.infoTupleList[i]=('によって', '助詞,格助詞,連語,*,*,*,によって,ニヨッテ,ニヨッテ' )
+				elif ('動詞,自立,*,*,五段・ラ行,連用形,なる,ナリ,ナリ' == f1) and ( "、" in f2):
+					self.infoTupleList[i]=('なっ', '動詞,自立,*,*,五段・ラ行,連用タ接続,なる,ナッ,ナッ')
+					self.infoTupleList.insert (i+1,('て', '助詞,接続助詞,*,*,*,*,て,テ,テ'))
+				elif ('名詞,非自立,助動詞語幹,*,*,*,よう,ヨウ,ヨー' in f1) and not("に" in f2) and not("だ" in f2):
+					self.infoTupleList[i]=('よう','名詞,非自立,助動詞語幹,*,*,*,よう,ヨウ,ヨー')
+					self.infoTupleList.insert (i+1,('に', '助詞,副詞化,*,*,*,*,に,ニ,ニ'))
+				elif ('助詞,格助詞,連語,*,*,*,により,ニヨリ,ニヨリ' in f1):
+					self.infoTupleList[i]=('によって', '助詞,格助詞,連語,*,*,*,によって,ニヨッテ,ニヨッテ' )
 			i+=1
 		self.translatedText=""
 		for x in self.infoTupleList:
 			self.translatedText+=x[0]
 
-
+	
 
 
 
@@ -146,26 +148,20 @@ class Translater(WordInfo):
 
 
 class Kaigokiroku():
-	def __init__(self):
-		path1="/home/jinisuke55/record_of_care/record/string.csv"
+	translatedWords=""
+	def __init__(self,text):
+		path1="/home/jinisuke55/record_of_care/record/nagaoka.csv"
 		myDict=Yomikomi(path1).iikaeDict
-		print(myDict)
-		path2="/home/jinisuke55/record_of_care/record/kaigokiroku.csv"
-		with open(path2) as f:
-			rows=csv.reader(f)
-			for row in rows:
-				translatedWords=""
-				print("前:",row[0])
-				import MeCab
-				chasen=MeCab.Tagger("-chasen -u /usr/local/lib/mecab/dic/ipadic/original.dic")
-				words=chasen.parseToNode(row[0])
-				while words.next!=None:
-					if words.feature in myDict:
-						translatedWords+=myDict[words.feature]
-					else:
-						translatedWords+=words.surface
-					words=words.next
-					
-				##さらに言いかえ
-				self.translatedWords=Translater(translatedWords).translatedText
-
+		translatedWords=""
+		import MeCab
+		chasen=MeCab.Tagger("-chasen -u /usr/local/lib/mecab/dic/ipadic/original.dic")
+		words=chasen.parseToNode(text)
+		while words.next!=None:
+			if words.feature in myDict:
+				translatedWords+=myDict[words.feature]
+			else:
+				translatedWords+=words.surface
+			words=words.next
+		##さらに言いかえ
+		translatedWords=Translater(translatedWords).translatedText
+		self.translatedWords+=translatedWords				

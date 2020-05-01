@@ -1,84 +1,16 @@
 
-
-#2つの文の品詞情報の比較をしたいけど
-#MeCabは同時に複数のTaggerを持てない（上書きされる）ので
-#タプルのリストとして情報を保管しておいて使う
-class WordInfo():
+class Translater():
+	translated_text=""
 	def __init__(self,text):
-		import sys
-		import MeCab
-		chasen=MeCab.Tagger("-chasen -u /usr/local/lib/mecab/dic/ipadic/original.dic")
-		#ノードに入っていたデータのリストを作る
-		#例　[単語1の("surface","feature"),(単語2の同)…]
-		node=chasen.parseToNode(text)
-		self.infoTupleList=[]
-		while node:
-			infoStr=node.feature
-			surfaceStr=node.surface
-			self.infoTupleList.append((surfaceStr,infoStr))
-			node=node.next
-		
+		t_translated_text=Technical_term_translater(text).translated_text
+		g_translated_text=General_term_ranslater(t_translated_text).translated_text
+		self.translated_text=g_translated_text
 
-
-class IikaeTango():
-	def __init__(self,t1,t2): 
-		#文章を2つ用意して、品詞分解する
-		w1=WordInfo(t1).infoTupleList
-		w2=WordInfo(t2).infoTupleList
-		self.iikaeDict={}
-		count=0
-		self.words=[]
-		#2つの文章のcount番目の単語の情報を比較
-		for x,y in zip(w1,w2):
-			#辞書登録の条件①～④を満たしているときに処理
-			#条件①：形態素のsurfaceが違っている
-			if x[0] != y[0] :
-				count+=1
-				#条件②：featureの品詞部分が共通
-				if x[1].split(",")[0]==y[1].split(",")[0]:
-					#条件③：featureが"名詞,一般,*,*,*,*,*"じゃない
-					if x[1]!='名詞,一般,*,*,*,*,*': 
-						#条件④：助詞じゃない
-						if x[1].split(",")[0]!="助詞":
-							#全条件を満たした場合の処理
-							#辞書登録の候補にする
-							self.words.append((x[1],y[0]))
-		#相違点が1カ所の場合だけ辞書に本登録する
-		if count==1:
-			self.iikaeDict=dict(self.words)
-
-
-
-class Yomikomi():
-	def __init__(self,path):
-		import sys
-		import csv
-		self.iikaeDict={}
-		with open(path) as f:
-			rows=csv.reader(f)
-			eraseSet=set()
-			for row in rows:
-				if row[1]!=row[2]:
-					#「たずねる：尋ねる/訪ねる」系は削除
-					newDict=IikaeTango(row[1],row[2]).iikaeDict
-					if newDict!={}:
-						iikaeKey=list(newDict.keys())[0]
-						iikaeValue=newDict[iikaeKey]
-						if (iikaeKey in self.iikaeDict):
-							#キーが同じなら何もしない
-							#キーが同じかつ値が違うなら加えず消去予定リストへ
-							if (iikaeValue != self.iikaeDict[iikaeKey]):
-								eraseSet.add(iikaeKey)
-								#pass
-						else:
-							self.iikaeDict.update(newDict)
-			for x in list(eraseSet):
-				del self.iikaeDict[x]
-	
 
 
 #text="所により大雨によって"
-class Translater(WordInfo):
+class Technical_term_translater(WordInfo):
+	translated_text=""
 	def  __init__(self,text):
 		super().__init__(text)
 		i=0
@@ -101,7 +33,6 @@ class Translater(WordInfo):
 			rows=csv.reader(f)
 			kaigoDict.update(dict([row  for row in rows]))
 		
-		
 		#言いかえ
 		while i < len(textInfo)-1:#最後から二番目まで
 			f1=textInfo[i][1]#feature
@@ -119,7 +50,6 @@ class Translater(WordInfo):
 				del self.infoTupleList[i+1]
 			else:
 				pass
-			
 			if s1 in kaigoDict:
 				self.infoTupleList[i]=(kaigoDict[s1],"名詞,一般,*,*,*,*,-,-,-")
 			elif "助詞,副助詞,*,*,*,*,のみ,ノミ,ノミ" in f1:
@@ -134,43 +64,124 @@ class Translater(WordInfo):
 				self.infoTupleList.insert (i+1,('に', '助詞,副詞化,*,*,*,*,に,ニ,ニ'))
 			elif ('助詞,格助詞,連語,*,*,*,により,ニヨリ,ニヨリ' in f1):
 				self.infoTupleList[i]=('によって', '助詞,格助詞,連語,*,*,*,によって,ニヨッテ,ニヨッテ' )
-			
 			i+=1
-		self.translatedText=""
 		for x in self.infoTupleList:
-			self.translatedText+=x[0]
+			self.translated_text+=x[0]
 
 	
+class General_term_ranslater():
+	translated_text=""
+	general_term_dict={}
+	def __init__(self,text):
+		#非専門用語の辞書を読み込む
+		#(1)この場で新しく辞書を作って読み込む場合
+		#self.make_general_term_dict_now()
+		#(2)あらかじめ作って置いたのを読み込む場合
+		path="/home/jinisuke55/record_of_care/record/iikae_dict.csv"
+		self.make_general_term_dict_from_existing_csv(path)
 
+		self.translate(text)
 
+	def make_general_term_dict_from_existing_csv(self,path):
+		#介護用語の辞書を読み込む（あらかじめ作って置いたのを読み込むパターン）
+		import csv
+		with open(path)  as f:
+			rows=csv.reader(f,delimiter="\t")
+			self.general_term_dict.update(dict([row  for row in rows]))
 
+	def make_general_term_dict_now(self):
+		#まずは、｛難しい非専門用語：やさしい日本語｝の対を1組作る関数を定義
+		def make_proposed_general_term_dict(t1,t2):
+			#文章を2つ用意して、品詞分解する
+			w1=WordInfo(t1).infoTupleList
+			w2=WordInfo(t2).infoTupleList
+			proposed_general_term_dict={}
+			count=0
+			words=[]
+			#2つの文章のcount番目の単語の情報を比較
+			for x,y in zip(w1,w2):
+				#辞書登録の条件①～④を満たしているときに処理
+				#条件①：形態素のsurfaceが違っている
+				if x[0] != y[0] :
+					count+=1
+					#条件②：featureの品詞部分が共通
+					if x[1].split(",")[0]==y[1].split(",")[0]:
+						#条件③：featureが"名詞,一般,*,*,*,*,*"じゃない
+						if x[1]!='名詞,一般,*,*,*,*,*': 
+							#条件④：助詞じゃない
+							if x[1].split(",")[0]!="助詞":
+								#全条件を満たした場合の処理
+								#辞書登録の候補にする
+								words.append((x[1],y[0]))
+			#相違点が1カ所の場合だけ辞書に本登録する
+			if count==1:
+				proposed_general_term_dict=dict(words)
+			return proposed_general_term_dict
 
-
-
-class Kaigokiroku():
-	translatedWords=""
-	def __init__(self):
+		#上記の関数を使って、文例のcsvから非専門用語辞書を作っていく
+		path="/home/jinisuke55/record_of_care/record/nagaoka.csv"
 		import sys
 		import csv
-		path1="/home/jinisuke55/record_of_care/record/nagaoka.csv"
-		myDict=Yomikomi(path1).iikaeDict
-		#print(myDict)
-		path2="/home/jinisuke55/record_of_care/record/string.csv"
-		with open(path2) as f:
+		with open(path) as f:
 			rows=csv.reader(f)
+			eraseSet=set()
 			for row in rows:
-				translatedWords=""
-				#print("前:",row[0])
-				import MeCab
-				chasen=MeCab.Tagger("-chasen -u /usr/local/lib/mecab/dic/ipadic/original.dic")
-				words=chasen.parseToNode(row[0])
-				while words.next!=None:
-					if words.feature in myDict:
-						translatedWords+=myDict[words.feature]
-					else:
-						translatedWords+=words.surface
-					words=words.next
-					
-				##さらに言いかえ
-				translatedWords=Translater(translatedWords).translatedText
-				self.translatedWords+=translatedWords				
+				if row[1]!=row[2]:
+					#「たずねる：尋ねる/訪ねる」系は削除
+					newDict=make_proposed_general_term_dict(row[1],row[2])
+					if newDict!={}:
+						iikaeKey=list(newDict.keys())[0]
+						iikaeValue=newDict[iikaeKey]
+						if (iikaeKey in self.general_term_dict):
+							#キーが同じなら何もしない
+							#キーが同じかつ値が違うなら加えず消去予定リストへ
+							if (iikaeValue != self.general_term_dict[iikaeKey]):
+								eraseSet.add(iikaeKey)
+						else:
+							self.general_term_dict.update(newDict)
+			for x in list(eraseSet):
+				del self.general_term_dict[x]
+		#結果のログを残す
+		with open('/home/jinisuke55/record_of_care/record/iikae_dict.csv','w') as f:
+			writer=csv.writer(f, delimiter="\n")
+			writer.writerow(['{0}\t{1}'.format(x,y) for x,y in self.general_term_dict.items()])
+	
+	def translate(self,text):
+		import MeCab
+		chasen=MeCab.Tagger("-chasen -u /usr/local/lib/mecab/dic/ipadic/original.dic")
+		translated_words=""
+		words=chasen.parseToNode(text)
+		while words.next!=None:
+			if words.feature in self.general_term_dict:
+				translated_words+=self.general_term_dict[words.feature]
+			else:
+				translated_words+=words.surface
+			words=words.next
+		self.translated_text=translated_words				
+
+
+
+
+
+
+
+
+#2つの文の品詞情報の比較をしたいけど
+#MeCabは同時に複数のTaggerを持てない（上書きされる）ので
+#タプルのリストとして情報を保管しておいて使う
+class WordInfo():
+	def __init__(self,text):
+		import sys
+		import MeCab
+		chasen=MeCab.Tagger("-chasen -u /usr/local/lib/mecab/dic/ipadic/original.dic")
+		#ノードに入っていたデータのリストを作る
+		#例　[単語1の("surface","feature"),(単語2の同)…]
+		node=chasen.parseToNode(text)
+		self.infoTupleList=[]
+		while node:
+			infoStr=node.feature
+			surfaceStr=node.surface
+			self.infoTupleList.append((surfaceStr,infoStr))
+			node=node.next
+		
+
