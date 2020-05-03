@@ -21,3 +21,22 @@ body{
     background-color:#ffffff;
 
 }
+/*
+input{
+    padding:5px auto;
+    margin:5px auto;
+    border: none;
+    outline:none;
+}
+select{
+    border:none;
+    outline:none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: transparent;
+}
+*/
+table{
+    width:100%;
+}

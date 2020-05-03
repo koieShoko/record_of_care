@@ -1,11 +1,10 @@
 from django import forms
-from .models import Meal_record
+from .models import Meal_record, Record
 class MealRecordForm(forms.ModelForm):
         class Meta:
                 model = Meal_record
                 fields = (
                         'resident',
-                        'staff',
                         'date',
                         'time',
                         'kind',
@@ -13,3 +12,15 @@ class MealRecordForm(forms.ModelForm):
                         'side_food',
                         'notice'
                 )
+                widgets = {
+                        'date': forms.SelectDateWidget,
+                        'time': forms.TimeInput(format='%HH:%MM'),
+                }
+
+class translated_notice_form(forms.ModelForm):
+        class Meta:
+                model =Record
+                fields = (
+                        'translated_notice',
+                )
+                

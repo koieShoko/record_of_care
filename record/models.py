@@ -83,6 +83,7 @@ class Staff(User):
     reading_comprehension=models.IntegerField(
         verbose_name="日本語サポートの必要性",
         choices=READING_SUPPORT_NECESSITY,
+        default=1
     )
 
 
@@ -106,7 +107,11 @@ class Record(models.Model):
     )
     notice=models.CharField(
         verbose_name="特記事項",
-        max_length=4096,
+        max_length=8000,
+    )
+    translated_notice=models.CharField(
+        verbose_name="何があったか",
+        max_length=8000,
     )
     written_date= models.DateTimeField(
         blank=True, null=True
@@ -114,6 +119,10 @@ class Record(models.Model):
     def register(self):
         self.written_date=timezone.now()
         self.save()
+
+
+
+
 
 
 class Meal_record(Record):
@@ -127,15 +136,24 @@ class Meal_record(Record):
         choices=KIND_CHOICES,
         max_length=16,
         default='BF'
+        
     )
+    FOOD_CHOICES=tuple([(x,x)for x in range(0,11)])
     staple_food=models.IntegerField(
         verbose_name="食事量（主食）",
         default=10,
+        choices=FOOD_CHOICES,
     )
     side_food=models.IntegerField(
         verbose_name="食事量（副食）",
         default=10,
+        choices=FOOD_CHOICES,
     )
     def __str__(self):
         return "食事記録"
+
+
+
+
+
 

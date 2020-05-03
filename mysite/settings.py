@@ -126,4 +126,8 @@ STATIC_ROOT=os.path.join(BASE_DIR, 'static')
 
 #認証用のUSERモデル
 # https://qiita.com/NAKKA-K/items/7627b6a22f364941b989
-AUTH_USER_MODEL='account.User'
+AUTH_USER_MODEL='record.Staff'
+
+
+#ログイン
+LOGIN_REDIRECT_URL='/'

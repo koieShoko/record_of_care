@@ -98,10 +98,10 @@ class General_term_ranslater():
 	def __init__(self,text):
 		#非専門用語の辞書を読み込む
 		#(1)この場で新しく辞書を作って読み込む場合
-		self.make_general_term_dict_now()
+		#self.make_general_term_dict_now()
 		#(2)あらかじめ作って置いたのを読み込む場合
-		#path="/home/jinisuke55/record_of_care/record/iikae_dict.csv"
-		#self.make_general_term_dict_from_existing_csv(path)
+		path="/home/jinisuke55/record_of_care/record/iikae_dict.csv"
+		self.make_general_term_dict_from_existing_csv(path)
 
 		self.translate(text)
 
