@@ -10,12 +10,22 @@ class MealRecordForm(forms.ModelForm):
                         'kind',
                         'staple_food',
                         'side_food',
-                        'notice'
+                        'notice',
+                        'staff',
+                        'translated_notice',
+                        'written_date',
                 )
                 widgets = {
-                        'date': forms.SelectDateWidget,
-                        'time': forms.TimeInput(format='%HH:%MM'),
+                        'translated_notice': forms.Textarea(attrs={'class': 'notice'}),
+                        'notice': forms.Textarea(attrs={'class': 'notice'}),
+                        'date': forms.DateInput(attrs={'class': 'date'}),
+                        'time': forms.TimeInput(format='%H:%M'),
+                        'staff':forms.HiddenInput(),
+                        'written_date':forms.HiddenInput(),
                 }
+
+
+
 
 class translated_notice_form(forms.ModelForm):
         class Meta:

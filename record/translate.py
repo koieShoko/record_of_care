@@ -31,14 +31,12 @@ class WordInfo():
 
 
 
-#text="所により大雨によって"
 class Technical_term_translater(WordInfo):
 	translated_text=""
 	def  __init__(self,text):
 		super().__init__(text)
 		i=0
-		textInfo=self.infoTupleList
-		
+		textInfo=self.infoTupleList		
 		import csv
 		import sys
 		#介護用語のサ変リスト
@@ -55,12 +53,13 @@ class Technical_term_translater(WordInfo):
 		with open(path2) as f:
 			rows=csv.reader(f)
 			kaigoDict.update(dict([row  for row in rows]))
-		
+
+
 		#言いかえ
 		while i < len(textInfo)-1:#最後から二番目まで
 			f1=textInfo[i][1]#feature
 			f2=textInfo[i+1][1]
-			s1=textInfo[i][0]
+			s1=textInfo[i][0]#元の単語
 			s2=textInfo[i+1][0]
 			####!!!!ここは独立した分岐
 			#「訪室・する」を「訪室する」にする
@@ -69,7 +68,7 @@ class Technical_term_translater(WordInfo):
 				#「する」は消す
 				del self.infoTupleList[i+1]
 			elif (s1 in sahenList) and ("。" in f2):
-				s1=s1+"する"
+				s1=s1+"しました"
 				del self.infoTupleList[i+1]
 			else:
 				pass
@@ -87,6 +86,57 @@ class Technical_term_translater(WordInfo):
 				self.infoTupleList.insert (i+1,('に', '助詞,副詞化,*,*,*,*,に,ニ,ニ'))
 			elif ('助詞,格助詞,連語,*,*,*,により,ニヨリ,ニヨリ' in f1):
 				self.infoTupleList[i]=('によって', '助詞,格助詞,連語,*,*,*,によって,ニヨッテ,ニヨッテ' )
+
+
+			####文章を短くする####
+
+			####ですます調####
+			##3形態素にまたがる処理
+#			elif (i <len(textInfo)-2):
+#				f3=textInfo[i+2][1]
+#				s3=textInfo[i+2][0]
+#				
+#過去形はまだできてない				if ('動詞' in s1) and ('た' in s2) and ('。' in s3):#勝った→勝ちました
+#					if ('っ' in s1 ) and ('連用タ接続' in f1):
+#						self.infoTupleList[i] = (s1[0:-1]+chr(ord(s1[-1])-2),f1.replace('連用タ接続','連用形'))
+#					self.infoTupleList.insert (i+1,'まし', '助動詞,*,*,*,特殊・マス,連用形,ます,マシ,マシ')		
+			elif ('。' in f2):
+				print(s1)
+				if ('動詞' in f1):
+					if ('五段・タ行' in f1) :#勝つ→勝ちました
+						self.infoTupleList[i] = (s1[0:-1]+chr(ord(s1[-1])-3),f1.replace('基本','連用'))
+						## 本当は形態素情報のうちの読みの部分も書き換えないといけない。						
+						## 現状は実害ないけどのちのちバグの温床になる可能性があるので
+						# 余裕があれば直す事
+					elif ("五段・ワ行促音便" in f1) or ("五段・サ行" in f1) or ('五段・カ行促音便' in  f1) :
+						self.infoTupleList[i] = (s1[0:-1]+chr(ord(s1[-1])-2),f1.replace('基本','連用'))					
+					elif ("五段" in f1) :#出す→出しました
+						self.infoTupleList[i] = (s1[0:-1]+chr(ord(s1[-1])-1),f1.replace('基本','連用'))
+					elif ("一段" in f1):#見る→見ました
+						self.infoTupleList[i] = (s1[0:-1],f1.replace('基本','連用'))
+					elif ('サ変' in f1 ):
+						self.infoTupleList[i] = ('し','し', '動詞,自立,*,*,サ変・スル,連用形,する,シ,シ')
+					elif ("カ変・クル" in f1):
+						self.infoTupleList[i] =("き",'動詞,自立,*,*,カ変・クル,連用形,くる,キ,キ')
+					elif ("カ変・来ル" in f1):
+						self.infoTupleList[i] =("来",'動詞,自立,*,*,カ変・来ル,連用形,来る,キ,キ')
+					self.infoTupleList.insert(i+1,('まし', '助動詞,*,*,*,特殊・マス,連用形,ます,マシ,マシ'))
+					self.infoTupleList.insert(i+2,('た', '助動詞,*,*,*,特殊・タ,基本形,た,タ,タ'))
+
+
+				####サ変名詞止めをやめさせる####
+				elif ('名詞,サ変接続' in f1 ):
+					self.infoTupleList.insert(i+1,('し', '動詞,自立,*,*,サ変・スル,連用形,する,シ,シ'))
+					self.infoTupleList.insert(i+2,('まし', '助動詞,*,*,*,特殊・マス,連用形,ます,マシ,マシ'))
+					self.infoTupleList.insert(i+3,('た', '助動詞,*,*,*,特殊・タ,基本形,た,タ,タ'))
+					
+				####体言止めをやめさせる####
+				elif ('名詞' in f1 ) and not('サ変' in f1):
+					self.infoTupleList.insert(i+1,('です', '助動詞,*,*,*,特殊・デス,基本形,です,デス,デス'))
+				####形容詞止めをやめさせる####
+				elif ('形容詞' in f1 ):
+					self.infoTupleList.insert(i+1,('です', '助動詞,*,*,*,特殊・デス,基本形,です,デス,デス'))	
+
 			i+=1
 		for x in self.infoTupleList:
 			self.translated_text+=x[0]

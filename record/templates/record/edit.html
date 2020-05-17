@@ -1,32 +1,37 @@
 {% extends 'record/base.html' %}
 {% block content %}
 
-    <h2>食事記録の記入</h2>
     <form method="POST" class-"meal-record-form">{% csrf_token %}
         <table align="left">
+            <caption>食事記録の記入</caption>
             {{ form.non_field_errors }}
-
+            {{ formset.management_form | linebreaksbr}}
             <tr>
-                {% for field in form %}
-                    <th>
-                        {{ field.label_tag }}
-                    </th>
+                {% for field in formset.form.visible_fields %}
+                        <th>
+                            {{ field.label_tag }}
+                        </th>
                 {% endfor %}
+                
             </tr>
-                {% for field in form %}
+            {% for form in formset.forms %}
+                {% for field in form.visible_fields %}
                     <td>
                         {{ field }}
-                        {% if field.help_text %}
-                            <span class="helptext">{{ field.help_text }}</span>
-                        {% endif %}
                         {% if field.help_text %}
                             <span class="helptext">{{ field.help_text }}</span>
                         {% endif %}
                         {{ field.errors }}
                     </td>
                 {% endfor %}
+                {% for field in form.hidden_fields %}
+                    {{field}}
+                {% endfor %}
             <tr>
+            {% endfor %}
         </table>
-            <button type="submit" class="save btn btn-default">記入完了</button>
-    </form>
+            <div class="button_area">
+                    <button type="submit" class="btn">{{ submit_text }}</button>
+            </div>
+        </form>
     {% endblock %}

@@ -92,11 +92,13 @@ class Record(models.Model):
         Resident,
         verbose_name="利用者",
         on_delete=models.CASCADE,
+        null=True,
     )
     staff=models.ForeignKey(
         Staff,
         verbose_name="職員",
         on_delete=models.CASCADE,
+        blank=True, null=True
     )
     date=models.DateField(
         verbose_name="日付",
@@ -104,14 +106,17 @@ class Record(models.Model):
     )
     time=models.TimeField(
         verbose_name="時刻",
+        default="00:00"
     )
     notice=models.CharField(
         verbose_name="特記事項",
         max_length=8000,
+        blank=True, null=True
     )
     translated_notice=models.CharField(
-        verbose_name="何があったか",
+        verbose_name="変換結果",
         max_length=8000,
+        blank=True, null=True
     )
     written_date= models.DateTimeField(
         blank=True, null=True
@@ -132,7 +137,7 @@ class Meal_record(Record):
         ('DI','夕食'),
     )
     kind=models.CharField(
-        verbose_name="食事の種類",
+        verbose_name="種類",
         choices=KIND_CHOICES,
         max_length=16,
         default='BF'
@@ -140,12 +145,12 @@ class Meal_record(Record):
     )
     FOOD_CHOICES=tuple([(x,x)for x in range(0,11)])
     staple_food=models.IntegerField(
-        verbose_name="食事量（主食）",
+        verbose_name="主食量",
         default=10,
         choices=FOOD_CHOICES,
     )
     side_food=models.IntegerField(
-        verbose_name="食事量（副食）",
+        verbose_name="副食量",
         default=10,
         choices=FOOD_CHOICES,
     )
