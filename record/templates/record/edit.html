@@ -2,7 +2,7 @@
 {% block content %}
 
     <form method="POST" class-"meal-record-form">{% csrf_token %}
-        <table align="left">
+        <table align="left" id="edit_table">
             <caption>食事記録の記入</caption>
             {{ form.non_field_errors }}
             {{ formset.management_form | linebreaksbr}}
@@ -12,7 +12,6 @@
                             {{ field.label_tag }}
                         </th>
                 {% endfor %}
-                
             </tr>
             {% for form in formset.forms %}
                 {% for field in form.visible_fields %}

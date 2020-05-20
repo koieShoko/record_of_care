@@ -23,7 +23,7 @@ def meal_record_new(request):
         {
         "resident":Resident.objects.get(pk= i),
         "staff":request.user,
-        "written_date":timezone.now(),}
+        }
          for i in range(1,countResidents + 1 )
     ]
     submit_text="記入完了"
@@ -34,8 +34,8 @@ def meal_record_new(request):
             i=0
             for file in instances:
                 postKey="form-"+str(i)+"-notice"
-                file.translated_notice=Translater(request.POST[postKey]).translated_text
-                file.save()
+                file.translated_notice=wakatigaki(Translater(request.POST[postKey]).translated_text)
+                file.register()
                 i+=1
             return redirect('check_translate')
     else:
@@ -55,12 +55,37 @@ def check_translate(request):
     if request.method =="POST":
         formset=MealRecordFormSet(request.POST)
         formset.save()
-        return redirect('meal_record_new')
+        #今回変換したレコードを以降表示しない
+        records=Meal_record.objects.filter(isTranslated=False)
+        records.update(isTranslated=True)
+        return redirect('/meal_record/search')
     else:
-        formset=MealRecordFormSet(queryset=Meal_record.objects.order_by("written_date").reverse()[:3])
+        formset=MealRecordFormSet(queryset=Meal_record.objects.filter(isTranslated=False))
         return render(request, 'record/edit.html', {'formset':formset,'submit_text':submit_text})
 
 
+
+def search_record(request):
+    submit_text="読む"
+    if request.method == "POST":
+        form=SearchRecordForm(request.POST)                
+        records=[]
+        if form.is_valid():
+            date=request.POST["date"]
+            department=request.user.department
+            records=Meal_record.objects.filter(date=date, department=department)
+            labels=["名前","日にち","時間","種類","ご飯","ご飯以外","何があったか"] 
+        return render(request, 'record/read.html', {'records': records, 'labels':labels})
+    else:
+        form = SearchRecordForm()
+        return render(request, 'record/search.html', {'form':form, 'submit_text':submit_text})
+
+
+
+
+
+
+'''
 def translate_save(request,pk):
     record=Record.objects.get(pk=pk)
     record.translated_notice=request.session['translated_notice']
@@ -82,14 +107,5 @@ def translate_rewrite(request,pk):
         residents=Staff.objects.all()
     return render(request,'record/edit.html',{'form':form,'residents':residents} )
 
-
-def meal_record_read(request):
-    #if request.method =="POST":
-    string=Record.objects.filter(date__iexact="2020-04-09")[0].notice
-        #if form.is_valid():
-         #   meal_record=form.save(commit=False)#まだ保存しない
-          #  meal_record.residen
-           # meal_record.written_date=timezone.now()
-           # post.save()
-    return render(request, 'record/meal_record_read.html', {'string':string})
+'''
 

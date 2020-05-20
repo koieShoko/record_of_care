@@ -7,7 +7,7 @@ from account.models import User
 
 class Resident(models.Model):
     full_name     = models.CharField(verbose_name="名前",max_length=128)
-    kana_full_name= models.CharField(verbose_name="フリガナ",max_length=128)
+    kana_full_name= models.CharField(verbose_name="ふりがな",max_length=128)
     DEPARTMENT_CHOICES = (#(保存する値,表示)
         ("1","1階"),
         ("2","2階"),
@@ -16,26 +16,26 @@ class Resident(models.Model):
         ("5","5階"),
         ("6","6階"),
     )
-    department = models.CharField(
+    department      = models.CharField(
         verbose_name="部署",
         default="1",
         max_length=128,
         choices=DEPARTMENT_CHOICES,
     )
-    birthday      = models.DateField(
+    birthday        = models.DateField(
         verbose_name="生年月日"
     )
-    UNIT_CHOICES   = (
+    UNIT_CHOICES    = (
         ('E','東'),
         ('W','西'),
     )
-    unit = models.CharField(
+    unit            = models.CharField(
         verbose_name="ユニット",
         default='E',
         max_length=1,
         choices=UNIT_CHOICES,
     )
-    room = models.IntegerField(
+    room            = models.IntegerField(
         verbose_name="部屋番号",
     )
     def register(self):
@@ -77,8 +77,8 @@ class Staff(User):
         default="CS",
     )
     READING_SUPPORT_NECESSITY=(
-        (0,"必要"),
-        (1,"不要"),
+        (0,"不要"),
+        (1,"必要"),
     )
     reading_comprehension=models.IntegerField(
         verbose_name="日本語サポートの必要性",
@@ -88,42 +88,57 @@ class Staff(User):
 
 
 class Record(models.Model):
-    resident=models.ForeignKey(
+    resident        = models.ForeignKey(
         Resident,
         verbose_name="利用者",
         on_delete=models.CASCADE,
         null=True,
     )
-    staff=models.ForeignKey(
+    staff           = models.ForeignKey(
         Staff,
         verbose_name="職員",
         on_delete=models.CASCADE,
         blank=True, null=True
     )
-    date=models.DateField(
+    date            = models.DateField(
         verbose_name="日付",
         default=timezone.now,
     )
-    time=models.TimeField(
+    time            = models.TimeField(
         verbose_name="時刻",
         default="00:00"
     )
-    notice=models.CharField(
+    notice          = models.CharField(
         verbose_name="特記事項",
         max_length=8000,
         blank=True, null=True
     )
-    translated_notice=models.CharField(
+    translated_notice= models.CharField(
         verbose_name="変換結果",
         max_length=8000,
         blank=True, null=True
     )
-    written_date= models.DateTimeField(
+    written_date    = models.DateTimeField(
         blank=True, null=True
+    )
+    department      = models.CharField(
+        verbose_name="部署",
+        max_length=128,
+    )
+    unit            = models.CharField(
+        verbose_name="ユニット",
+        max_length=128,
+    )
+    isTranslated    = models.BooleanField(
+        verbose_name="変換済みかどうか",
+        default=False,
     )
     def register(self):
         self.written_date=timezone.now()
+        self.department=self.resident.department
+        self.unit=self.resident.unit
         self.save()
+
 
 
 
@@ -132,11 +147,11 @@ class Record(models.Model):
 
 class Meal_record(Record):
     KIND_CHOICES   = (
-        ('BF','朝食'),
-        ('LU','昼食'),
-        ('DI','夕食'),
+        ('朝食','朝食'),
+        ('昼食','昼食'),
+        ('夕食','夕食'),
     )
-    kind=models.CharField(
+    form1           = models.CharField(
         verbose_name="種類",
         choices=KIND_CHOICES,
         max_length=16,
@@ -144,12 +159,12 @@ class Meal_record(Record):
         
     )
     FOOD_CHOICES=tuple([(x,x)for x in range(0,11)])
-    staple_food=models.IntegerField(
+    form2           = models.IntegerField(
         verbose_name="主食量",
         default=10,
         choices=FOOD_CHOICES,
     )
-    side_food=models.IntegerField(
+    form3           = models.IntegerField(
         verbose_name="副食量",
         default=10,
         choices=FOOD_CHOICES,

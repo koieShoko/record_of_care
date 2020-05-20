@@ -61,14 +61,14 @@ textarea{
 }
 
 
-input{
+#edit_table input{
     border: none;
     width:45px;
     outline:none;
     background-color: transparent;
 
 }
-input.date{
+#edit_table input.date{
     width:85px;
 }
 caption{
@@ -76,7 +76,7 @@ caption{
     margin-bottom:50px;
 }
 
-select{
+#edit_table select{
     border:none;
     outline:none;
     -webkit-appearance: none;
@@ -99,3 +99,16 @@ button{
     font-size: 20px;
 
 }
+
+ul{
+    list-style:none;
+    width:100%;
+}
+li{
+    width:100em;
+    margin:5em auto; 
+} 
+label{
+    width:10em;
+}
+

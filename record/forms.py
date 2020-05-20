@@ -7,13 +7,12 @@ class MealRecordForm(forms.ModelForm):
                         'resident',
                         'date',
                         'time',
-                        'kind',
-                        'staple_food',
-                        'side_food',
+                        'form1',
+                        'form2',
+                        'form3',
                         'notice',
                         'staff',
                         'translated_notice',
-                        'written_date',
                 )
                 widgets = {
                         'translated_notice': forms.Textarea(attrs={'class': 'notice'}),
@@ -21,16 +20,16 @@ class MealRecordForm(forms.ModelForm):
                         'date': forms.DateInput(attrs={'class': 'date'}),
                         'time': forms.TimeInput(format='%H:%M'),
                         'staff':forms.HiddenInput(),
-                        'written_date':forms.HiddenInput(),
                 }
 
 
-
-
-class translated_notice_form(forms.ModelForm):
+																											
+class SearchRecordForm(forms.ModelForm):
         class Meta:
-                model =Record
-                fields = (
-                        'translated_notice',
-                )
-                
+                model = Record 
+                fields=(
+                        'date',
+                )																													
+																											
+																																																				
+																											

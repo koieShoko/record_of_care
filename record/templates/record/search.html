@@ -1,0 +1,29 @@
+{% extends 'record/base.html' %}
+{% block content %}
+
+    <form method="POST" class-"meal-record-form">{% csrf_token %}
+        <ul align="left">
+            <caption>食事記録の記入</caption>
+            {{ form.non_field_errors }}
+            {% for field in form.visible_fields %}
+            
+            <li>
+                    <label>{{ field.label_tag }}</label>
+                        {{ field }}
+                        {% if field.help_text %}
+                            <span class="helptext">{{ field.help_text }}</span>
+                        {% endif %}
+                        {{ field.errors }}
+                </li>
+
+            {% endfor %}
+        </ul>
+            {% for field in form.hidden_fields %}
+                {{field}}
+            {% endfor %}
+            
+            <div class="button_area">
+                    <button type="submit" class="btn">{{ submit_text }}</button>
+            </div>
+        </form>
+    {% endblock %}

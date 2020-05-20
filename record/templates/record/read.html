@@ -1,0 +1,47 @@
+{% extends 'record/base.html' %}
+{% block content %}
+{% csrf_token %}
+        <table align="left" id="read_table">
+            <caption>食事記録</caption>
+            <tr>
+                {% for label in labels %}
+                <th>
+                    {{label}}
+                </th>
+                {% endfor %}                                                                                                                                                                                                                                               
+                {% for record in records %}
+            </tr>
+                    <td>
+                        {{ record.resident.full_name }}
+                        <br>
+                        {{ record.resident.kana_full_name }}
+                    </td>
+                    <td>
+                        {{ record.date }}
+                    </td>
+                    <td>
+                        {{ record.time }}
+                    </td>
+                    <td>
+                        {{ record.form1 }}
+                    </td>
+                    <td>
+                        {{ record.form2 }}
+                    </td>
+                    <td>
+                        {{ record.form3 }}
+                    </td>
+                {% if request.user.reading_comprehension == 0 %}
+                    <td>
+                        {{ record.notice }}
+                    </td>
+                {% else %}
+                    <td>
+                        {{ record.translated_notice }}
+                    </td>
+                {% endif %}
+
+                <tr>
+            {% endfor %}
+        </table>
+{% endblock %}
