@@ -1,12 +1,12 @@
 {% extends 'record/base.html' %}
 {% block content %}
-
     <form method="POST" class-"meal-record-form">{% csrf_token %}
-        <ul align="left">
-            <caption>食事記録の記入</caption>
+        <h2>食事記録の記入</h2>
+
+        <ul align="left" id="search">
             {{ form.non_field_errors }}
             {% for field in form.visible_fields %}
-            
+
             <li>
                     <label>{{ field.label_tag }}</label>
                         {{ field }}

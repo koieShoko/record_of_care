@@ -22,6 +22,9 @@ class MealRecordForm(forms.ModelForm):
                         'staff':forms.HiddenInput(),
                 }
 
+        def __init__(self, *args, **kwargs):
+                kwargs.setdefault('label_suffix', '')
+                super().__init__(*args, **kwargs)
 
 																											
 class SearchRecordForm(forms.ModelForm):

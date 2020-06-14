@@ -111,12 +111,14 @@ class Record(models.Model):
     notice          = models.CharField(
         verbose_name="特記事項",
         max_length=8000,
-        blank=True, null=True
+        default="",
+        blank=True
     )
     translated_notice= models.CharField(
         verbose_name="変換結果",
         max_length=8000,
-        blank=True, null=True
+        default="",
+        blank=True,
     )
     written_date    = models.DateTimeField(
         blank=True, null=True
@@ -158,7 +160,7 @@ class Meal_record(Record):
         default='BF'
         
     )
-    FOOD_CHOICES=tuple([(x,x)for x in range(0,11)])
+    FOOD_CHOICES=tuple([(x,str(x)+"/10")for x in range(0,11)])
     form2           = models.IntegerField(
         verbose_name="主食量",
         default=10,

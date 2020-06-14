@@ -42,11 +42,11 @@ td{
     margin:  1% 1% 1% 1%;
     padding:0;
 }
-tr th:nth-of-type(7),tr th:nth-of-type(8) {
+#edit_table tr th:nth-of-type(7),#edit_table tr th:nth-of-type(8) {
     width:300px;
 }
   
-textarea{
+#edit_table textarea{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
@@ -108,7 +108,23 @@ li{
     width:100em;
     margin:5em auto; 
 } 
-label{
+#search label{
+    width:10em;
+}
+#search input{
     width:10em;
 }
 
+
+#read_table th{
+    margin     : 0.25em 1em;
+}
+
+#read_table td{
+    height:100%;
+    padding:1em 1em;
+}
+#read_table td:nth-of-type(7){
+    width:30em;
+    text-align:left;
+}
