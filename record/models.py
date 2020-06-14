@@ -88,6 +88,7 @@ class Staff(User):
 
 
 class Record(models.Model):
+    kind            = ""
     resident        = models.ForeignKey(
         Resident,
         verbose_name="利用者",
@@ -135,44 +136,59 @@ class Record(models.Model):
         verbose_name="変換済みかどうか",
         default=False,
     )
+    form1           = models.CharField(
+        verbose_name="項目1",
+        max_length=16,
+        default='---'
+    )    
+    form2           = models.CharField(
+        verbose_name="項目2",
+        max_length=16,
+        default='---'
+    )    
+    form3           = models.CharField(
+        verbose_name="項目3",
+        max_length=16,
+        default='---'
+    )    
     def register(self):
         self.written_date=timezone.now()
         self.department=self.resident.department
         self.unit=self.resident.unit
         self.save()
-
-
-
-
+    def __str__(self):
+        return self.kind
 
 
 
 class Meal_record(Record):
-    KIND_CHOICES   = (
-        ('朝食','朝食'),
-        ('昼食','昼食'),
-        ('夕食','夕食'),
-    )
-    form1           = models.CharField(
-        verbose_name="種類",
-        choices=KIND_CHOICES,
-        max_length=16,
-        default='BF'
-        
-    )
-    FOOD_CHOICES=tuple([(x,str(x)+"/10")for x in range(0,11)])
-    form2           = models.IntegerField(
-        verbose_name="主食量",
-        default=10,
-        choices=FOOD_CHOICES,
-    )
-    form3           = models.IntegerField(
-        verbose_name="副食量",
-        default=10,
-        choices=FOOD_CHOICES,
-    )
-    def __str__(self):
-        return "食事記録"
+    def __init__(self):
+        self.kind="食事"
+        KIND_CHOICES   = (
+            ('朝食','朝食'),
+            ('昼食','昼食'),
+            ('夕食','夕食'),
+        )
+        self.form1           = models.CharField(
+            verbose_name="種類",
+            choices=KIND_CHOICES,
+            max_length=16,
+            default='朝食'
+        )
+        amounts=["{:>2}".format(str(x))+"/10" for x in range(0,11)]
+        FOOD_CHOICES=tuple([(x ,x ) for x in amounts])
+        self.form2           = models.CharField(
+            verbose_name="主食量",
+            default="10/10",
+            choices=FOOD_CHOICES,
+            max_length=16,
+        )
+        self.form3           = models.CharField(
+            verbose_name="副食量",
+            default="10/10",
+            choices=FOOD_CHOICES,
+            max_length=16,
+        )
 
 
 

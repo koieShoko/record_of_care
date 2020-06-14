@@ -13,7 +13,7 @@ a{
 }
 
 .main{
-    margin-top:50px;
+    margin-top:1em;
 }
 
 body{
@@ -30,11 +30,11 @@ table{
 }
 
 th{
-    text-align: center;
     padding:25px 0 25px 0;
     background-color: #CCCCCC;
     border:2px solid #AAAAAA;
     font-weight:normal;
+    text-align: center;
 
 }
 td{
@@ -104,27 +104,52 @@ ul{
     list-style:none;
     width:100%;
 }
-li{
-    width:100em;
-    margin:5em auto; 
-} 
-#search label{
-    width:10em;
-}
+    ul>li{
+        width:100em;
+        margin:3em auto; 
+    }
+        ul>li>label{
+            margin-right:3em;
+        }
+
 #search input{
     width:10em;
 }
 
 
+
 #read_table th{
-    margin     : 0.25em 1em;
+        margin     : 0.25em 1em;
 }
 
 #read_table td{
     height:100%;
     padding:1em 1em;
 }
+#read_table td:nth-of-type(1){
+    width:8em;
+}
 #read_table td:nth-of-type(7){
     width:30em;
     text-align:left;
+}
+
+h1{
+	font-size:2.5em;
+}
+h2{
+	border-bottom : 3px solid #AAAAAA;
+	margin-bottom:20px;
+	padding: 0 0 10px;
+	font-size:2em;
+	
+}
+h3{
+	border-left: 6px ridge #AAAAAA;
+	font-weight:bold;
+	font-size:1.5em;
+	margin-bottom: 20px;
+	padding: 3px 0 3px 10px;
+	margin : 2em 0;
+	
 }
