@@ -1,10 +1,8 @@
 .page-header{
     margin-top:0;
-    padding:30px 30px 10px 30px;
-    font-size:10px;
+    padding :0.5em auto;
+    font-size:1em;
     border-bottom:1px solid #AAAAAA;
-    margin-bottom:50px;
-    
 }
 
 a{
@@ -93,7 +91,7 @@ button{
     background-color: #CCCCCC;
     width:300px;
     margin:30px;
-    height:100px;
+    height:4em;
 }
 .btn{
     font-size: 20px;
@@ -109,6 +107,7 @@ ul{
         margin:3em auto; 
     }
         ul>li>label{
+            width:10em;
             margin-right:3em;
         }
 
@@ -134,21 +133,44 @@ ul{
 }
 
 h1{
-	font-size:2.5em;
+    font-size:1.8em;
+    margin: 0.8em 0 0.8em 1.5em;
+
 }
 h2{
-	border-bottom : 3px solid #AAAAAA;
-	margin-bottom:20px;
-	padding: 0 0 10px;
-	font-size:2em;
-	
-}
-h3{
-	border-left: 6px ridge #AAAAAA;
+    border-left: 6px ridge #AAAAAA;
 	font-weight:bold;
 	font-size:1.5em;
 	margin-bottom: 20px;
 	padding: 3px 0 3px 10px;
-	margin : 2em 0;
-	
+	margin : 2em 0;	
+}
+#header{
+    list-style: none;
+    overflow: hidden;
+    font-size: 1em;
+}
+#header li {
+    width: 12em;
+    text-align:center;
+    margin-right:2px;
+    float:left;
+    margin: 0 auto;
+
+}
+#header a {
+    text-decoration: none;
+    font-size: 1em;
+    font-weight: bold;
+  }
+
+
+#easy,#normal{
+    text-align: left;
+    width:8em;
+    font-size:1.5em;
+    padding:0.25em auto;
+    outline: none;
+    border-radius:0.5em;
+    text-align: center;
 }

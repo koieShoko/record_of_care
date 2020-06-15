@@ -1,5 +1,5 @@
 from django import forms
-from .models import Meal_record, Record
+from .models import *
 class MealRecordForm(forms.ModelForm):
         class Meta:
                 model = Meal_record
@@ -34,5 +34,15 @@ class SearchRecordForm(forms.ModelForm):
                         'date',
                 )																													
 																											
-																																																				
+class SearchResidentForm(forms.Form):
+        resident = forms.MultipleChoiceField(
+                label = "入居者",
+                required = False,
+                disabled = False,
+                widget   = forms.CheckboxSelectMultiple(
+                        attrs={
+                                'class': 'resident'
+                        }
+                )
+        )        																																															
 																											
