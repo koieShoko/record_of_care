@@ -11,6 +11,7 @@ import csv
 
 def meal_record_new(request):
     residents=request.session.get('checked_residents')
+    request.session["checked_residents"]=[]
     countResidents=len(residents)
     MealRecordFormSet = modelformset_factory(
         Meal_record,
@@ -18,13 +19,16 @@ def meal_record_new(request):
         extra=countResidents,
         max_num=20,
     )
+    dict_to_write_all=request.session['dict_to_write_all']
+    request.session['dict_to_write_all']={}
     initial=[
         {
-        "resident":Resident.objects.get(full_name=residents[i]),
-        "staff":request.user,
-        }
-         for i in range(0,countResidents)
+        "resident": Resident.objects.get(full_name=residents[i]),
+        "staff"   : request.user,
+        }for i in range(0,countResidents)
     ]
+    for x in initial:
+        x.update(dict_to_write_all)
     submit_text="記入完了"
     if request.method =="POST":
         formset=MealRecordFormSet(request.POST)
@@ -41,6 +45,31 @@ def meal_record_new(request):
         formset=MealRecordFormSet(initial=initial,queryset=Meal_record.objects.none())
     return render(request, 'record/edit.html', {'formset':formset,'submit_text':submit_text})
 
+def write_all(request):
+    title="まとめて入力する"
+    submit_text="入力完了"
+    if request.method == "POST":
+        form=MealRecordForm_ForWriteAll(request.POST)                
+        if form.is_valid():
+            labels=[
+                        'date',
+                        'time',
+                        'form1',
+                        'form2',
+                        'form3',
+                        'notice',]
+            dict_to_write_all={}
+            for label in labels:
+                dict_to_write_all[str(label)]=request.POST[str(label)]
+            request.session["dict_to_write_all"]=dict_to_write_all
+        return redirect('/meal_record/new')
+    else:
+        form = MealRecordForm_ForWriteAll()
+        return render(request, 'record/search.html', {
+            'form':form, 
+            'submit_text':submit_text,
+            'title':title,
+        })
 
 
 def check_translate(request):
@@ -57,7 +86,7 @@ def check_translate(request):
         #今回変換したレコードを以降表示しない
         records=Meal_record.objects.filter(isTranslated=False)
         records.update(isTranslated=True)
-        return redirect('/meal_record/search')
+        return redirect('/record/search')
     else:
         formset=MealRecordFormSet(queryset=Meal_record.objects.filter(isTranslated=False))
         return render(request, 'record/edit.html', {'formset':formset,'submit_text':submit_text})
@@ -92,7 +121,7 @@ def search_resident(request):
     results = {}
     if request.method == "POST":
         request.session['checked_residents']=request.POST.getlist('resident')
-        return redirect('/meal_record/new')
+        return redirect('/write_all')
     else:
         form = SearchResidentForm()
         choice =[
@@ -103,8 +132,8 @@ def search_resident(request):
         return render(
             request, 
             'record/search.html', 
-            {'form':form, 'submit_text':submit_text, 'title':title})
-
+            {'form':form, 'submit_text':submit_text, 'title':title}
+        )
 
 def change_mode(request):
     staff_pk         = request.user.staff.pk
@@ -117,29 +146,4 @@ def change_mode(request):
 
 
 
-
-
-'''
-def translate_save(request,pk):
-    record=Record.objects.get(pk=pk)
-    record.translated_notice=request.session['translated_notice']
-    record.save()
-    return redirect('/meal_record/new/')
-
-
-def translate_rewrite(request,pk):
-    if request.method == "POST":
-        form=translated_notice_form(request.POST)
-        if form.is_valid():
-            record=Record.objects.get(pk=pk)
-            record.translated_notice=request.POST['translated_notice']
-            record.save()
-        return redirect('/meal_record/new/')
-    else:
-        translated_notice=request.session['translated_notice']
-        form = translated_notice_form(initial={'translated_notice':translated_notice} )
-        residents=Staff.objects.all()
-    return render(request,'record/edit.html',{'form':form,'residents':residents} )
-
-'''
 

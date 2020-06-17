@@ -26,6 +26,26 @@ class MealRecordForm(forms.ModelForm):
                 kwargs.setdefault('label_suffix', '')
                 super().__init__(*args, **kwargs)
 
+class MealRecordForm_ForWriteAll(forms.ModelForm):
+        class Meta:
+                model = Meal_record
+                fields = (
+                        'date',
+                        'time',
+                        'form1',
+                        'form2',
+                        'form3',
+                        'notice',
+                )
+                widgets = {
+                        'notice': forms.Textarea(attrs={'class': 'notice'}),
+                        'date': forms.DateInput(attrs={'class': 'date'}),
+                        'time': forms.TimeInput(format='%H:%M'),
+                }
+        def __init__(self, *args, **kwargs):
+                kwargs.setdefault('label_suffix', '')
+                super().__init__(*args, **kwargs)
+
 																											
 class SearchRecordForm(forms.ModelForm):
         class Meta:
@@ -45,4 +65,4 @@ class SearchResidentForm(forms.Form):
                         }
                 )
         )        																																															
-																											
+																									

@@ -133,9 +133,8 @@ ul{
 }
 
 h1{
-    font-size:1.8em;
+    font-size:1.5em;
     margin: 0.8em 0 0.8em 1.5em;
-
 }
 h2{
     border-left: 6px ridge #AAAAAA;
@@ -149,28 +148,25 @@ h2{
     list-style: none;
     overflow: hidden;
     font-size: 1em;
+    font-weight: bold;
+
 }
 #header li {
-    width: 12em;
+    width: 14em;
     text-align:center;
     margin-right:2px;
     float:left;
-    margin: 0 auto;
+    margin: 0.25em 3em 0 3em;
 
 }
 #header a {
     text-decoration: none;
     font-size: 1em;
-    font-weight: bold;
   }
 
 
-#easy,#normal{
-    text-align: left;
-    width:8em;
-    font-size:1.5em;
+#base_easy,#base_normal{
+    width:10em;
     padding:0.25em auto;
-    outline: none;
     border-radius:0.5em;
-    text-align: center;
 }

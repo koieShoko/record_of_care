@@ -1,8 +1,8 @@
 {% extends 'record/base.html' %}
 {% block content %}
 {% csrf_token %}
+    <h2>食事記録</h2>
         <table align="left" id="read_table">
-            <caption>食事記録</caption>
             <tr>
                 {% for label in labels %}
                 <th>
@@ -14,8 +14,10 @@
                     <td>
                         {{ record.resident.full_name }}
                         <br>
-                        {{ record.resident.kana_full_name }}
-                    </td>
+                        {% if request.user.reading_support == True %}
+                            {{ record.resident.kana_full_name }}
+                        {% endif %}
+                        </td>
                     <td>
                         {{ record.date }}
                     </td>

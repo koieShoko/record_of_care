@@ -15,16 +15,18 @@
                     <a href="/"><h1>やさしい介護記録</h1></a>
                     <ul id="header">
                     <!--           <a href="" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a> -->
+                    {%if request.user.full_name%}
+                        <li id="base_name">ようこそ{{request.user.full_name}} さん:</li>
+                    {% endif %}
                         <li><a href="/resident/search/">食事記録を書く</a></li>
                         <li><a href="/record/search/">読む</a></li>
                         <li>
                                 {%if request.user.reading_support %}
-                                    <a href="/account/mode/" id="easy">やさしいモード</a>
+                                    <div id="base_easy"><a href="/account/mode/">やさしいモード</a></div>
                                 {%else%}
-                                    <a href="/account/mode/" id="normal">通常モード</a>
+                                    <div id="base_normal"><a href="/account/mode/">通常モード</a></div>
                                 {%endif%}
                         </li>
-                        <li>{{request.user.full_name}}</li>
                     </ul>
                 </div>
             </div>
