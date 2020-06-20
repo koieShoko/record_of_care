@@ -16,22 +16,34 @@
                     <ul id="header">
                     <!--           <a href="" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a> -->
                     {%if request.user.full_name%}
-                        <li id="base_name">ようこそ{{request.user.full_name}} さん:</li>
+                        <li id="base_name">ようこそ、{{request.user.full_name}}さん:</li>
                     {% endif %}
                         <li><a href="/resident/search/">食事記録を書く</a></li>
                         <li><a href="/record/search/">読む</a></li>
-                        <li>
-                                {%if request.user.reading_support %}
-                                    <div id="base_easy"><a href="/account/mode/">やさしいモード</a></div>
-                                {%else%}
-                                    <div id="base_normal"><a href="/account/mode/">通常モード</a></div>
-                                {%endif%}
+                        <li id="mode_button">
+                            <a href="/account/mode/">
+                                <div class="base_easy_container">
+                                    {%if request.user.reading_support %}
+                                        <div class="base_easy on" >やさしい</div>
+                                        <div class="base_easy off">ふつう</div>
+                                    {%else%}
+                                        <div class="base_easy off">やさしい</div>
+                                        <div class="base_easy on" >ふつう</div>
+                                    {%endif%}
+                                </div>
+                            </a>
                         </li>
                     </ul>
                 </div>
             </div>
             <div class="row">
                 <div class="main">
+                {%if title%}
+                    <h2>{{ title }}</h2>
+                {%endif%}
+                {%if explain%}
+                    <h3>{{ explain }}</h3>
+                {%endif%}                    
                     {% block content %}
                     {% endblock %}
                 </div>

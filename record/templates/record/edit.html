@@ -1,6 +1,6 @@
 {% extends 'record/base.html' %}
 {% block content %}
-<h2>食事記録の記入</h2>
+
     <form method="POST" class-"meal-record-form">{% csrf_token %}
         <table align="left" id="edit_table">
             {{ form.non_field_errors }}

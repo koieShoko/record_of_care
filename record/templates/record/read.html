@@ -1,23 +1,25 @@
 {% extends 'record/base.html' %}
 {% block content %}
 {% csrf_token %}
-    <h2>食事記録</h2>
         <table align="left" id="read_table">
             <tr>
                 {% for label in labels %}
                 <th>
                     {{label}}
                 </th>
-                {% endfor %}                                                                                                                                                                                                                                               
+                {% endfor %}    
                 {% for record in records %}
             </tr>
                     <td>
-                        {{ record.resident.full_name }}
-                        <br>
-                        {% if request.user.reading_support == True %}
-                            {{ record.resident.kana_full_name }}
-                        {% endif %}
-                        </td>
+                        <ruby>
+                            {{ record.resident.full_name }}
+                            <rt>
+                                {% if request.user.reading_support == True %}
+                                    {{ record.resident.kana_full_name }}
+                                {% endif %}
+                            </rt>
+                        </ruby>
+                    </td>
                     <td>
                         {{ record.date }}
                     </td>
@@ -39,11 +41,12 @@
                     </td>
                 {% else %}
                     <td>
-                        {{ record.translated_notice }}
+                        {{ ruby_translated_notice }}
                     </td>
                 {% endif %}
 
                 <tr>
             {% endfor %}
         </table>
+        
 {% endblock %}
