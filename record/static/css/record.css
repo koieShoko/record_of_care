@@ -128,7 +128,7 @@ ul{
 #read_table td:nth-of-type(1){
     width:8em;
 }
-#read_table td:nth-of-type(7){
+#read_table td:nth-of-type(6){
     width:30em;
     text-align:left;
 }
@@ -195,4 +195,19 @@ h2{
     padding:0.25em auto;
 
 
+}
+#base_explain > li{
+    font-size:1em;
+    margin: 0;
+    margin:0.5em 0;
+}
+
+
+#write_all>input,#write_all> select,#write_all> textarea{
+    width:20em;
+    background-color: transparent;
+    outline:none;
+    border:1px #cccccc solid;
+    border-radius: 5px;
+    height:3em;
 }
