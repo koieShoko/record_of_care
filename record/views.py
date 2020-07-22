@@ -26,7 +26,7 @@ def search_resident(request):
     else:
         form = SearchResidentForm()
         choice =[
-            (resident, resident.full_name) for resident in Resident.objects.filter(department=request.user.department,is_leaving=False) 
+            (resident, resident.full_name) for resident in Resident.objects.filter(department=request.user.]:[:],is_leaving=False) 
         ]
         form.fields['resident'].choices = choice
         form.fields['resident'].initial = [x for x in Resident.objects.filter(department=request.user.department)] 
