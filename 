@@ -1,0 +1,101 @@
+commit a877bf860cf91a5fcd4dc4504db95c744146ad6e
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Sat Jun 20 11:56:55 2020 +0900
+
+    ルビを振った特記事項欄をmodelに追加する前
+
+commit 0c2c90c46b09597c7b8b51647655369bda037cc4
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Wed Jun 17 22:17:42 2020 +0900
+
+    一括入力機能を実装
+
+commit 8ebea4e49ee59292ccd12432a5f0bf80d0f82391
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Tue Jun 16 03:25:00 2020 +0900
+
+    UIの改善
+
+commit 34f50f60db0d8bb99855bb70318d43a940b880c9
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Mon Jun 15 03:47:22 2020 +0900
+
+    レコードの構造を修正
+
+commit 1ede4ee1c67095410f41a4eaf2c16eb0f8731c1a
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Mon Jun 15 03:42:31 2020 +0900
+
+    レコードの構造を修正
+
+commit 7db68b69042170558852960ef95884cba42712d9
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Sun Jun 14 21:24:33 2020 +0900
+
+    第一弾プロトタイプいったん完成
+
+commit 835fd1ef5ca7adf9855a936171cefec525326d5f
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Thu May 21 00:58:35 2020 +0900
+
+    閲覧機能完了
+
+commit b58e4c8983dca6121c028aeae87ec26c6c107cff
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Sun May 17 13:39:45 2020 +0900
+
+    --。があると無限ループに突入する
+
+commit 50c7cb4a6c1b735a1fff9e82a97e4368b9b25979
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Sun May 3 21:16:03 2020 +0900
+
+    ログイン機能の実装
+
+commit 5a5f603316f40c7509b96f3c448a4abe27f905d9
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Sat May 2 01:14:33 2020 +0900
+
+    辞書作成機能と変換機能の切り分け完了
+
+commit bd4d157da9a28c68a700c9ee76388260908e77fb
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Sat May 2 01:10:43 2020 +0900
+
+    辞書作成機能と変換機能の切り分け完了
+
+commit b8bc66fe724e30b31ed2e18e3188a7351dd1eb0a
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Sat Apr 25 22:37:23 2020 +0900
+
+    変換機能を実装したけど遅い
+
+commit 476688371d93927439a478fe35346a175bf8db89
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Thu Apr 9 21:54:23 2020 +0900
+
+    自由記述部分を画面に表示するところまで
+
+commit e33d45562405c684441751ba832eb26674f93c87
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Thu Apr 9 12:38:18 2020 +0900
+
+    after migrate
+
+commit b41381d2e202c218ca50dc5d82f111e785444246
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Thu Apr 9 12:24:21 2020 +0900
+
+    before migrate2
+
+commit a9626af3d07966ac679d818b28c16f8e88497fff
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Thu Apr 9 11:51:27 2020 +0900
+
+    before migrate
+
+commit fcc85174dab91e486df3783eb866ce7e79f852b2
+Author: koieShoko <s19024@st.kic.ac>
+Date:   Thu Apr 9 11:45:55 2020 +0900
+
+    first commit

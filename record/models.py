@@ -38,6 +38,10 @@ class Resident(models.Model):
     room            = models.IntegerField(
         verbose_name="部屋番号",
     )
+    is_leaving      = models.BooleanField(
+        verbose_name='退所済',
+        default=False,
+    )
     def register(self):
         self.save()
     def __str__(self):
@@ -136,10 +140,6 @@ class Record(models.Model):
     )
     isTranslated    = models.BooleanField(
         verbose_name="変換済みかどうか",
-        default=False,
-    )
-    is_leaving      = models.BooleanField(
-        verbose_name='退所済かどうか',
         default=False,
     )
     def register(self):

@@ -26,7 +26,7 @@ def search_resident(request):
     else:
         form = SearchResidentForm()
         choice =[
-            (resident, resident.full_name) for resident in Resident.objects.filter(department=request.user.department) 
+            (resident, resident.full_name) for resident in Resident.objects.filter(department=request.user.department,is_leaving=False) 
         ]
         form.fields['resident'].choices = choice
         form.fields['resident'].initial = [x for x in Resident.objects.filter(department=request.user.department)] 
@@ -156,6 +156,7 @@ def search_record(request):
     title   = "ステップ1:   記録を選ぶ"
     explain = ''
     submit_text="読む"
+    ruby_translated_notice= ""
     if request.method == "POST":
         form=SearchRecordForm(request.POST)                
         records=[]
@@ -167,10 +168,9 @@ def search_record(request):
             if request.user.reading_support == True:
                 labels=["名前","日にち","時間","種類","ご飯","ご飯以外","何があったか"] 
                 ruby_maker=Ruby_maker()
-                ruby_translated_notice=[]
                 for record in records:
                     ruby = ruby_maker.output(record.translated_notice)
-                    ruby_translated_notice.append(ruby)
+                    ruby_translated_notice = ruby
             title   = "ステップ2：記録を読む"
             explain = ''
         return render(request,'record/read.html',{
