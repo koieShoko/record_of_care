@@ -21,9 +21,6 @@
                         </ruby>
                     </td>
                     <td>
-                        {{ record.date }}
-                    </td>
-                    <td>
                         {{ record.time }}
                     </td>
                     <td>
@@ -44,7 +41,9 @@
                         {{ ruby_translated_notice }}
                     </td>
                 {% endif %}
-
+                <td>
+                    {{ record.staff }}
+                </td>
                 <tr>
             {% endfor %}
         </table>

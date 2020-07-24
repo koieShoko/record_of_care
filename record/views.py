@@ -161,24 +161,32 @@ def search_record(request):
         form=SearchRecordForm(request.POST)                
         records=[]
         if form.is_valid():
-            date=request.POST["date"]
+            date = request.POST["date"]
             department = request.user.department
-            records=Meal_record.objects.filter(date=date, department=department).order_by('room','date','time')
-            labels=["名前","日付","時刻","種類","主食量","副食量","特記事項"]
+            records = Meal_record.objects.filter(date=date, department=department).order_by('room','date','time')
+            labels = ["名前","時刻","種類","主食量","副食量","特記事項","職員"]
             if request.user.reading_support == True:
-                labels=["名前","日にち","時間","種類","ご飯","ご飯以外","何があったか"] 
+                labels=["名前","時間","種類","ご飯","ご飯以外","何があったか","書いた人"] 
                 ruby_maker=Ruby_maker()
                 for record in records:
                     ruby = ruby_maker.output(record.translated_notice)
                     ruby_translated_notice = ruby
+            from record.html_maker import Date_formatter, Html_maker
+            html_maker = Html_maker()
+            df = Date_formatter()
+            date_ja = df.date_translate_to_ja(date)
             title   = "ステップ2：記録を読む"
-            explain = ''
+            explain =html_maker.make_ul(
+                id = "base_explain",
+                labels = ["日付：", "場所："],
+                values = [date_ja, request.user.department + "階"]
+            )
         return render(request,'record/read.html',{
                 'records'                : records,
                 'ruby_translated_notice' : mark_safe(ruby_translated_notice),#エスケープしない
                 'labels'                 : labels,
                 'title'                  : title,
-                'explain'                : explain,
+                'explain'                : mark_safe(explain),
 
         })
     else:
