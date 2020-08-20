@@ -88,7 +88,8 @@ class Staff(User):
         verbose_name="日本語サポート",
         default=False,
     )
-    
+    def __str__(self):
+        return self.full_name   
 
 class Record(models.Model):
     resident        = models.ForeignKey(
