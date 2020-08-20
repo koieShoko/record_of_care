@@ -42,6 +42,6 @@ class Ruby_maker():
                 html_list.append("（</rp><rt>{}</rt><rp>）</rp></ruby>".format(ruby_dict[word]))        
             else:
                 html_list.append(word)
-        html_text="".join(html_list)            
+        html_text="".join(html_list)          
         return html_text
 

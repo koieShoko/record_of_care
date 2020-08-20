@@ -38,7 +38,7 @@
                     </td>
                 {% else %}
                     <td>
-                        {{ ruby_translated_notice }}
+                        {{ record.ruby_translated_notice | safe }}
                     </td>
                 {% endif %}
                 <td>

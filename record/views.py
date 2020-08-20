@@ -105,9 +105,11 @@ def meal_record_new(request):
         if formset.is_valid():
             instances=formset.save(commit=False)
             i=0
+            ruby_maker=Ruby_maker()
             for file in instances:
                 postKey="form-"+str(i)+"-notice"
                 file.translated_notice=Translater(request.POST[postKey]).translated_text
+                file.ruby_translated_notice = ruby_maker.output(file.translated_notice)
                 file.register()
                 i+=1
             return redirect('check_translate')
@@ -156,7 +158,7 @@ def search_record(request):
     title   = "ステップ1:   記録を選ぶ"
     explain = ''
     submit_text="読む"
-    ruby_translated_notice= ""
+    ruby_translated_notice= []
     if request.method == "POST":
         form=SearchRecordForm(request.POST)                
         records=[]
@@ -167,10 +169,6 @@ def search_record(request):
             labels = ["名前","時刻","種類","主食量","副食量","特記事項","職員"]
             if request.user.reading_support == True:
                 labels=["名前","時間","種類","ご飯","ご飯以外","何があったか","書いた人"] 
-                ruby_maker=Ruby_maker()
-                for record in records:
-                    ruby = ruby_maker.output(record.translated_notice)
-                    ruby_translated_notice = ruby
             from record.html_maker import Date_formatter, Html_maker
             html_maker = Html_maker()
             df = Date_formatter()
@@ -183,7 +181,6 @@ def search_record(request):
             )
         return render(request,'record/read.html',{
                 'records'                : records,
-                'ruby_translated_notice' : mark_safe(ruby_translated_notice),#エスケープしない
                 'labels'                 : labels,
                 'title'                  : title,
                 'explain'                : mark_safe(explain),

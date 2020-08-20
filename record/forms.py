@@ -1,6 +1,5 @@
 from django import forms
 from .models import *
-from datetimewidget.widgets import DateTimeWidget
 class MealRecordForm(forms.ModelForm):
         class Meta:
                 model = Meal_record

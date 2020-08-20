@@ -128,6 +128,13 @@ class Record(models.Model):
         default="",
         blank=True,
     )
+    ruby_translated_notice = models.CharField(
+        verbose_name = "変換結果",
+        max_length   = 8000,
+        default = "",
+        blank   = True,
+        null    = True,
+    )
     written_date    = models.DateTimeField(
         blank=True, null=True
     )
