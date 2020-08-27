@@ -23,7 +23,7 @@ def search_resident(request):
     if request.method == "POST":
         request.session['checked_residents']=request.POST.getlist('resident')
         return redirect('/write_all')
-    else:
+    else:#初回
         form = SearchResidentForm()
         choice =[
             (resident, resident.full_name) for resident in Resident.objects.filter(department=request.user.department,is_leaving=False) 
@@ -49,19 +49,19 @@ def write_all(request):
         form=MealRecordForm_ForWriteAll(request.POST)                
         if form.is_valid():
             labels=[
-                        'date',
-                        'time',
-                        'form1',
-                        'form2',
-                        'form3',
-                        'notice',
+                        'date', 
+                        'time', 
+                        'form1', 
+                        'form2', 
+                        'form3', 
+                        'notice', 
                     ]
             dict_to_write_all={}
             for label in labels:
                 dict_to_write_all[str(label)]=request.POST[str(label)]
             request.session["dict_to_write_all"]=dict_to_write_all
         return redirect('/meal_record/new')
-    else:
+    else:#初回
         form = MealRecordForm_ForWriteAll()
         return render(
             request,
@@ -80,9 +80,9 @@ def meal_record_new(request):
     title       = 'ステップ3:   各入居者の記録を書く'
     explain     = None
     submit_text = "やさしい日本語へ変換"
-    residents = request.session.get('checked_residents')
+    residents   = request.session.get('checked_residents')
     request.session["checked_residents"]=[]
-    countResidents=len(residents)
+    countResidents    = len(residents)
     MealRecordFormSet = modelformset_factory(
         Meal_record,
         form    = MealRecordForm,
@@ -113,7 +113,7 @@ def meal_record_new(request):
                 file.register()
                 i+=1
             return redirect('check_translate')
-    else:
+    else:#初回
         formset=MealRecordFormSet(initial=initial,queryset=Meal_record.objects.none())
     return render(
         request,
@@ -186,7 +186,7 @@ def search_record(request):
                 'explain'                : mark_safe(explain),
 
         })
-    else:
+    else:#初回
         form = SearchRecordForm()
         return render(request, 'record/search.html', {
                 'form'          : form, 

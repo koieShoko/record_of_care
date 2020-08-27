@@ -16,14 +16,14 @@ class Resident(models.Model):
         ("5","5階"),
         ("6","6階"),
     )
+    birthday        = models.DateField(
+        verbose_name="生年月日"
+    )
     department      = models.CharField(
         verbose_name="部署",
         default="1",
         max_length=128,
         choices=DEPARTMENT_CHOICES,
-    )
-    birthday        = models.DateField(
-        verbose_name="生年月日"
     )
     UNIT_CHOICES    = (
         ('東','東'),
@@ -78,7 +78,7 @@ class Staff(User):
         ("OT","作業療法士"),
         ("ST","言語聴覚士"),
     )
-    occupation=models.CharField(
+    occupation = models.CharField(
         verbose_name="職種",
         choices=CHOICE_OCCUPATION,
         max_length=128,
@@ -136,7 +136,8 @@ class Record(models.Model):
         null    = True,
     )
     written_date    = models.DateTimeField(
-        blank=True, null=True
+        blank=True, 
+        null=True
     )
     department      = models.CharField(
         verbose_name="部署",
