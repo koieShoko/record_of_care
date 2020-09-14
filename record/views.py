@@ -46,11 +46,12 @@ def write_all(request):
     explain     = None
     submit_text = "入力完了"
     if request.method == "POST":
-        form=MealRecordForm_ForWriteAll(request.POST)                
+        form=RecordForm_ForWriteAll(request.POST)                
         if form.is_valid():
             labels=[
                         'date', 
                         'time', 
+                        'form0', 
                         'form1', 
                         'form2', 
                         'form3', 
@@ -60,9 +61,9 @@ def write_all(request):
             for label in labels:
                 dict_to_write_all[str(label)]=request.POST[str(label)]
             request.session["dict_to_write_all"]=dict_to_write_all
-        return redirect('/meal_record/new')
+        return redirect('/record/new')
     else:#初回
-        form = MealRecordForm_ForWriteAll()
+        form = RecordForm_ForWriteAll()
         return render(
             request,
             'record/search.html',
@@ -76,16 +77,16 @@ def write_all(request):
 
 
 
-def meal_record_new(request):
+def record_new(request):
     title       = 'ステップ3:   各入居者の記録を書く'
     explain     = None
     submit_text = "やさしい日本語へ変換"
     residents   = request.session.get('checked_residents')
     request.session["checked_residents"]=[]
     countResidents    = len(residents)
-    MealRecordFormSet = modelformset_factory(
-        Meal_record,
-        form    = MealRecordForm,
+    RecordFormSet = modelformset_factory(
+        Record,
+        form    = RecordForm,
         extra   = countResidents,
         max_num = 20,
     )
@@ -101,7 +102,7 @@ def meal_record_new(request):
     for x in initial:
         x.update(dict_to_write_all)
     if request.method =="POST":
-        formset=MealRecordFormSet(request.POST)
+        formset=RecordFormSet(request.POST)
         if formset.is_valid():
             instances=formset.save(commit=False)
             i=0
@@ -114,7 +115,7 @@ def meal_record_new(request):
                 i+=1
             return redirect('check_translate')
     else:#初回
-        formset=MealRecordFormSet(initial=initial,queryset=Meal_record.objects.none())
+        formset=RecordFormSet(initial=initial,queryset=Record.objects.none())
     return render(
         request,
         'record/edit.html',
@@ -130,21 +131,21 @@ def check_translate(request):
     title       = 'ステップ4:   誤訳を修正する'
     explain     = None
     submit_text = "誤訳修正完了"
-    MealRecordFormSet = modelformset_factory(
-        Meal_record,
-        form    = MealRecordForm,
+    RecordFormSet = modelformset_factory(
+        Record,
+        form    = RecordForm,
         extra   = 0,
         max_num = 20,
     )
     if request.method =="POST":
-        formset=MealRecordFormSet(request.POST)
+        formset=RecordFormSet(request.POST)
         formset.save()
         #今回変換したレコードを以降表示しない
-        records=Meal_record.objects.filter(isTranslated=False)
+        records=Record.objects.filter(isTranslated=False)
         records.update(isTranslated=True)
         return redirect('/record/search')
     else:
-        formset=MealRecordFormSet(queryset=Meal_record.objects.filter(isTranslated=False))
+        formset=RecordFormSet(queryset=Record.objects.filter(isTranslated=False))
         return render( request, 'record/edit.html', {
                 'formset'       : formset,
                 'submit_text'   : submit_text,
@@ -165,7 +166,7 @@ def search_record(request):
         if form.is_valid():
             date = request.POST["date"]
             department = request.user.department
-            records = Meal_record.objects.filter(date=date, department=department).order_by('room','date','time')
+            records = Record.objects.filter(date=date, department=department).order_by('room','date','time')
             labels = ["名前","時刻","種類","主食量","副食量","特記事項","職員"]
             if request.user.reading_support == True:
                 labels=["名前","時間","種類","ご飯","ご飯以外","何があったか","書いた人"] 

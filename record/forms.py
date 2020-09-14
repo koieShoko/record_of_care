@@ -1,12 +1,13 @@
 from django import forms
 from .models import *
-class MealRecordForm(forms.ModelForm):
+class RecordForm(forms.ModelForm):
         class Meta:
-                model = Meal_record
+                model  = Record
                 fields = (
                         'resident',
                         'date',
                         'time',
+                        'form0',
                         'form1',
                         'form2',
                         'form3',
@@ -15,32 +16,41 @@ class MealRecordForm(forms.ModelForm):
                         'translated_notice',
                 )
                 widgets = {
-                        'translated_notice': forms.Textarea(attrs={'class': 'notice'}),
-                        'notice': forms.Textarea(attrs={'class': 'notice'}),
-                        'date': forms.DateInput(attrs={'class': 'date'}),
-                        'time': forms.TimeInput(format='%H:%M'),
-                        'staff':forms.HiddenInput(),
+                        'translated_notice' : forms.Textarea(attrs={'class': 'notice'}),
+                        'notice'            : forms.Textarea(attrs={'class': 'notice'}),
+                        'date'              : forms.DateInput(attrs={'class': 'date'}),
+                        'time'              : forms.TimeInput(format='%H:%M'),
+                        'staff'             : forms.HiddenInput(),
+                        'form0'             : forms.SelectMultiple(attrs={'name':'form0', 'id':'form0'}),
+                        'form1'             : forms.SelectMultiple(attrs={'name':'form1'}),
+                        'form2'             : forms.SelectMultiple(attrs={'name':'form2'}),
+                        'form3'             : forms.SelectMultiple(attrs={'name':'form3'}),                    
                 }
 
         def __init__(self, *args, **kwargs):
                 kwargs.setdefault('label_suffix', '')
                 super().__init__(*args, **kwargs)
 
-class MealRecordForm_ForWriteAll(forms.ModelForm):
+class RecordForm_ForWriteAll(forms.ModelForm):
         class Meta:
-                model = Meal_record
+                model = Record
                 fields = (
                         'date',
                         'time',
+                        'form0',
                         'form1',
                         'form2',
                         'form3',
                         'notice',
                 )
                 widgets = {
-                        'notice': forms.Textarea(attrs={'class': 'notice'}),
-                        'date': forms.DateInput(attrs={'class': 'date'}),
-                        'time': forms.TimeInput(format='%H:%M'),
+                        'notice': forms.Textarea(attrs   = {'class': 'notice'}),
+                        'date'  : forms.DateInput(attrs  = {'class': 'date'}),
+                        'time'  : forms.TimeInput(format = '%H:%M'),
+                        'form0' : forms.Select(attrs = {'id':"form0"}),
+                        'form1' : forms.Select(attrs = {'id':"form1"}),
+                        'form2' : forms.Select(),
+                        'form3' : forms.Select(),                    
                 }
         def __init__(self, *args, **kwargs):
                 kwargs.setdefault('label_suffix', '')

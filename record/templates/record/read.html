@@ -1,6 +1,7 @@
 {% extends 'record/base.html' %}
 {% block content %}
 {% csrf_token %}
+{% load static %}
         <table align="left" id="read_table">
             <tr>
                 {% for label in labels %}
@@ -47,5 +48,5 @@
                 <tr>
             {% endfor %}
         </table>
-        
+
 {% endblock %}

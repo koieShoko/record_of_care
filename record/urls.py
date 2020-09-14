@@ -8,7 +8,7 @@ urlpatterns=[
     path('record/search/',   views.search_record,   name = 'search_record'),
 #新規登録と変換
     path('check_translate/', views.check_translate, name = 'check_translate'),
-    path('meal_record/new/', views.meal_record_new, name = 'meal_record_new'),
+    path('record/new/',      views.record_new,      name = 'record_new'),
     path('account/mode/',    views.change_mode,     name = 'change_mode'),
     path('write_all',        views.write_all,       name = 'write_all'),
     path('',                 views.search_record,   name = 'search_record'),

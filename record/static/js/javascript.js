@@ -1,34 +1,45 @@
-function functionName()
-    {
-        var select1 = document.forms.formName.selectName1; //変数select1を宣言
-        var select2 = document.forms.formName.selectName2; //変数select2を宣言
-        var select3 = document.forms.formName.selectName3; //変数select3を宣言
 
-        
-        select2.options.length = 0; // 選択肢の数がそれぞれに異なる場合、これが重要
-        select3.options.length = 0; // 選択肢の数がそれぞれに異なる場合、これが重要
-           
-        var words = {果物:["りんご","みかん","オレンジ"], 野菜:["にんじん","キャベツ","きゅうり"]};
-        
-        if (select1.options[select1.selectedIndex].value == "果物")
-            {
-                select2.options[0] = new Option("りんご");
-                select2.options[1] = new Option("みかん");
-                select2.options[2] = new Option("オレンジ");
-            }
-         
-        else if (select1.options[select1.selectedIndex].value == "野菜")
-            {
-                select2.options[0] = new Option("キャベツ");
-                select2.options[1] = new Option("きゅうり");
-                select2.options[2] = new Option("にんんじん");
-                select2.options[3] = new Option("たまねぎ");
-            }
-         
-        else if (select1.options[select1.selectedIndex].value == "肉類")
-            {
-                select2.options[0] = new Option("豚肉");
-                select2.options[1] = new Option("牛肉");
-            }
+
+
+
+
+function set_option(select, candidates){
+    for (let i = 0; i < candidates.length; i++){
+        select.options[i] = new Option(candidates[i]);
     }
- 
+    alert("aa");
+    return;
+}
+/*
+$("#form0").on('change', function()
+{    
+    alert("a");
+    var form0_candidates = ["食事","入浴", "生活","医療","夜間", "リハビリ", "家族連絡", "事故", "その他"];        
+    var form1_candidates = {
+        食事     : ["朝食", "昼食", "夕食"], 
+        入浴     : ["有り", "無し"],
+        夜間     : ["",""],
+        生活     : ["", ""],
+        医療     : ["", ""],
+        リハビリ : ["", ""],
+        家族連絡 : ["", ""],
+        事故     : ["", ""],
+        その他   : ["", ""]
+    };
+    var select0 = document.forms.formName.form0; //変数select0を宣言
+    var select1 = document.forms.formName.form1; //変数select1を宣言
+    select1.options.length = 0; // 選択肢の数がそれぞれに異なる場合、これが重要
+    form0_candidates.forEach(function(form0_candidate){
+    alert("b");
+    if (select0.options[select0.selectedIndex].value == form0_candidate)
+    {
+        set_option(select1, form1_candidates[form0_candidate]);
+        break;
+    }else{
+        continue;
+    }
+        return;
+    });
+});
+*/
+
