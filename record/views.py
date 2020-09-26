@@ -154,6 +154,7 @@ def record_new(request):
         form2 = category_form0.form2_name
         form3 = category_form0.form3_name
         labels = ["名前","時刻","種類", form1, form2, form3 ,"特記事項","職員"]
+        request.session["edit_labels"] = labels
         import inspect
         print(dir(inspect.getmembers(formset)))
         return render(
@@ -189,6 +190,7 @@ def check_translate(request):
         formset=RecordFormSet(queryset=Record.objects.filter(isTranslated=False))
         return render( request, 'record/edit.html', {
                 'formset'       : formset,
+                'labels'        : request.session["edit_labels"],
                 'submit_text'   : submit_text,
                 'title'         : title,
                 'explain'       : explain,
@@ -208,9 +210,9 @@ def search_record(request):
             date = request.POST["date"]
             department = request.user.department
             records = Record.objects.filter(date=date, department=department).order_by('room','date','time')
-            labels = ["名前","時刻","種類","主食量","副食量","特記事項","職員"]
+            labels = ["名前","時刻","種類", "情報1", "情報2", "情報3" ,"特記事項","職員"]
             if request.user.reading_support == True:
-                labels=["名前","時間","種類","ご飯","ご飯以外","何があったか","書いた人"] 
+                labels=["名前","時間","種類","情報1", "情報2", "情報3" ,"何があったか","書いた人"] 
             from record.html_maker import Date_formatter, Html_maker
             html_maker = Html_maker()
             df = Date_formatter()

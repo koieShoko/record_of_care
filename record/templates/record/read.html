@@ -25,21 +25,25 @@
                         {{ record.time }}
                     </td>
                     <td>
-                        {{ record.form1 }}
+                        {{ record.form0  | default_if_none:"" }}
+                    </td>
+
+                    <td>
+                        {{ record.form1  | default_if_none:"" }}
                     </td>
                     <td>
-                        {{ record.form2 }}
+                        {{ record.form2  | default_if_none:"" }}
                     </td>
                     <td>
-                        {{ record.form3 }}
+                        {{ record.form3  | default_if_none:"" }}
                     </td>
                 {% if request.user.reading_support == False %}
                     <td>
-                        {{ record.notice }}
+                        {{ record.notice | default_if_none:""}}
                     </td>
                 {% else %}
                     <td>
-                        {{ record.ruby_translated_notice | safe }}
+                        {{ record.ruby_translated_notice| default_if_none:"" | safe }}
                     </td>
                 {% endif %}
                 <td>
