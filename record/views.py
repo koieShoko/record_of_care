@@ -41,7 +41,7 @@ def search_resident(request):
         )
 
 def select_kind(request):
-    title       = 'ステップ■:   記録の種類を選ぶ'
+    title       = 'ステップ2:   記録の種類を選ぶ'
     explain     = None
     submit_text = "選択完了"
     results     = {}
@@ -64,7 +64,7 @@ def select_kind(request):
 def write_all(request):
     form0_id = request.session["selected_kind"] 
     category_form0 = Category_form0.objects.get(id=form0_id)
-    title       = "ステップ2:   全員に共通する部分を書く"
+    title       = "ステップ3:   全員に共通する部分を書く"
     explain     = str(category_form0) + "の記録"
     submit_text = "入力完了"
     if request.method == "POST":
@@ -92,6 +92,9 @@ def write_all(request):
         form.fields['form2'].label = category_form0.form2_name
         form.fields['form3'].label = category_form0.form3_name
         form.fields['form1'].queryset = Category_form1.objects.filter(parent = category_form0)
+        form.fields['form2'].queryset = Category_form2.objects.filter(parent = category_form0)
+        form.fields['form3'].queryset = Category_form3.objects.filter(parent = category_form0)
+
         return render(
             request,
             'record/search.html',
@@ -108,7 +111,7 @@ def write_all(request):
 def record_new(request):
     form0_id = request.session["selected_kind"] 
     category_form0 = Category_form0.objects.get(id=form0_id)
-    title       = 'ステップ3:   各入居者の記録を書く'
+    title       = 'ステップ4:   各入居者の記録を書く'
     explain     = str(category_form0) + "の記録"
     submit_text = "やさしい日本語へ変換"
     residents   = request.session.get('checked_residents')
@@ -134,7 +137,7 @@ def record_new(request):
         x.update(dict_to_write_all)
     if request.method =="POST":#2回目
         formset=RecordFormSet(request.POST)
-        if formset.is_valid():
+        if not(formset.is_valid()):
             instances=formset.save(commit=False)
             i=0
             ruby_maker=Ruby_maker()
@@ -148,6 +151,7 @@ def record_new(request):
         else:
             for ele in formset:
                 print(ele)
+            return render('record/error.html')
     else:#初回
         formset=RecordFormSet(initial=initial,queryset=Record.objects.none())
         form1 = category_form0.form1_name
@@ -172,7 +176,7 @@ def record_new(request):
 def check_translate(request):
     form0_id = request.session["selected_kind"] 
     category_form0 = Category_form0.objects.get(id=form0_id)
-    title       = 'ステップ4:   誤訳を修正する'
+    title       = 'ステップ5:   誤訳を修正する'
     explain     = str(category_form0) + "の記録"
     submit_text = "誤訳修正完了"
     RecordFormSet = modelformset_factory(
