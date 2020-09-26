@@ -51,6 +51,79 @@ class Resident(models.Model):
 
 
 
+
+
+
+
+class Category_form0(models.Model):
+    category_name = models.CharField(
+        verbose_name = "カテゴリ名",
+        default = '',
+        max_length = 50,
+    )
+    def __str__(self):
+        return self.category_name
+
+
+
+class Category_form1(models.Model):
+    category_name= models.CharField(
+        verbose_name = "カテゴリ名",
+        default = '',
+        max_length = 50,
+    )
+    parent = models.ForeignKey(
+        Category_form0,
+        verbose_name   = "親カテゴリ",
+        on_delete      = models.CASCADE,
+        blank          = True, 
+        null           = True
+    )
+    def __str__(self):
+        return self.category_name
+
+class Category_form2(models.Model):
+    category_name= models.CharField(
+        verbose_name = "カテゴリ名",
+        default = '',
+        max_length = 50,
+    )
+    parent = models.ForeignKey(
+        Category_form0,
+        verbose_name   = "親カテゴリ",
+        on_delete      = models.CASCADE,
+        blank          = True, 
+        null           = True
+    )
+    def __str__(self):
+        return self.category_name
+
+class Category_form3(models.Model):
+    category_name= models.CharField(
+        verbose_name = "カテゴリ名",
+        default = '',
+        max_length = 50,
+    )
+    parent = models.ForeignKey(
+        Category_form0,
+        verbose_name   = "親カテゴリ",
+        on_delete      = models.CASCADE,
+        blank          = True, 
+        null           = True
+    )
+    def __str__(self):
+        return self.category_name
+
+
+
+
+
+
+
+
+
+
+
 class Staff(User):
     full_name          = models.CharField(
         verbose_name   = "名前",
@@ -167,35 +240,33 @@ class Record(models.Model):
         ("事故", "事故"),
         ("その他", "その他"),
     )
-    form0              = models.CharField(
-        verbose_name   = "介助の種類",
-        max_length     = 50,
-        choices        = CHOICE_KIND,
+    form0              = models.ForeignKey(
+        Category_form0,
+        verbose_name   = "親カテゴリ",
+        on_delete      = models.CASCADE,
         blank          = True, 
         null           = True
     )
-    CHOICE_DEFAULT = (("", ""),
-                      ("", ""))
-    form1              = models.CharField(
+    form1              = models.ForeignKey(
+        Category_form1,
         verbose_name   = "情報1",
-        max_length     = 50,
+        on_delete      = models.CASCADE,
         blank          = True, 
-        null           = True,
-#        choices        = CHOICE_DEFAULT,
+        null           = True
     )
-    form2              = models.CharField(
+    form2              = models.ForeignKey(
+        Category_form2,
         verbose_name   = "情報2",
-        max_length     = 50,
+        on_delete      = models.CASCADE,
         blank          = True, 
-        null           = True,
-#        choices        = CHOICE_DEFAULT,
+        null           = True
     )
-    form3              = models.CharField(
+    form3              = models.ForeignKey(
+        Category_form3,
         verbose_name   = "情報3",
-        max_length     = 50,
+        on_delete      = models.CASCADE,
         blank          = True, 
-        null           = True,
-#        choices        = CHOICE_DEFAULT,
+        null           = True
     )
     def register(self):
         self.written_date  = timezone.now()
@@ -205,7 +276,4 @@ class Record(models.Model):
         self.save()
     def __str__(self):
         return self.form0 
-
-
-
 

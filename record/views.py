@@ -14,7 +14,6 @@ import csv
 
 
 
-
 def search_resident(request):
     title       = 'ステップ1:   入居者を選ぶ'
     explain     = None
@@ -22,7 +21,7 @@ def search_resident(request):
     results     = {}
     if request.method == "POST":
         request.session['checked_residents']=request.POST.getlist('resident')
-        return redirect('/write_all')
+        return redirect('/select_kind')
     else:#初回
         form = SearchResidentForm()
         choice =[
@@ -30,6 +29,27 @@ def search_resident(request):
         ]
         form.fields['resident'].choices = choice
         form.fields['resident'].initial = [x for x in Resident.objects.filter(department=request.user.department)] 
+        return render(
+            request, 
+            'record/search.html', 
+            {
+                'form'          : form,
+                'submit_text'   : submit_text,
+                'title'         : title,
+                'explain'       : explain,
+             }
+        )
+
+def select_kind(request):
+    title       = 'ステップ■:   記録の種類を選ぶ'
+    explain     = None
+    submit_text = "選択完了"
+    results     = {}
+    if request.method == "POST":
+        request.session['selected_kind']=request.POST["form0"]
+        return redirect('/write_all')
+    else:#初回
+        form = SelectKindForm()
         return render(
             request, 
             'record/search.html', 
@@ -59,11 +79,13 @@ def write_all(request):
                     ]
             dict_to_write_all={}
             for label in labels:
-                dict_to_write_all[str(label)]=request.POST[str(label)]
+                if label in request.POST :
+                    dict_to_write_all[str(label)]=request.POST[str(label)]
             request.session["dict_to_write_all"]=dict_to_write_all
         return redirect('/record/new')
     else:#初回
         form = RecordForm_ForWriteAll()
+        form.fields['form0'].initial = request.session["selected_kind"] 
         return render(
             request,
             'record/search.html',

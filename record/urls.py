@@ -12,6 +12,5 @@ urlpatterns=[
     path('account/mode/',    views.change_mode,     name = 'change_mode'),
     path('write_all',        views.write_all,       name = 'write_all'),
     path('',                 views.search_record,   name = 'search_record'),
-
-
+    path('select_kind',        views.select_kind,       name = 'select_kind'),
 ]
