@@ -170,8 +170,10 @@ def record_new(request):
         )
 
 def check_translate(request):
+    form0_id = request.session["selected_kind"] 
+    category_form0 = Category_form0.objects.get(id=form0_id)
     title       = 'ステップ4:   誤訳を修正する'
-    explain     = None
+    explain     = str(category_form0) + "の記録"
     submit_text = "誤訳修正完了"
     RecordFormSet = modelformset_factory(
         Record,
