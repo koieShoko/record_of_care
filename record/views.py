@@ -88,6 +88,9 @@ def write_all(request):
     else:#初回
         form = RecordForm_ForWriteAll()
         form.fields['form0'].initial = form0_id
+        form.fields['form1'].label = parent_category.form1_name
+        form.fields['form2'].label = parent_category.form2_name
+        form.fields['form3'].label = parent_category.form3_name
         form.fields['form1'].queryset = Category_form1.objects.filter(parent = parent_category)
         return render(
             request,
@@ -119,8 +122,8 @@ def record_new(request):
     request.session['dict_to_write_all']={}
     initial=[
         {
-        "resident": Resident.objects.get(full_name=residents[i]),
-        "staff"   : request.user,
+            "resident": Resident.objects.get(full_name=residents[i]),
+            "staff"   : request.user,
         }
         for i in range(0,countResidents)
     ]

@@ -61,6 +61,24 @@ class Category_form0(models.Model):
         default = '',
         max_length = 50,
     )
+    form1_name = models.CharField(
+        verbose_name = "情報1の項目名",
+        default = '',
+        blank = True,
+        max_length = 50,
+    )
+    form2_name = models.CharField(
+        verbose_name = "情報2の項目名",
+        default = '',
+        blank = True,
+        max_length = 50,
+    )
+    form3_name = models.CharField(
+        verbose_name = "情報3の項目名",
+        default = '',
+        max_length = 50,
+        blank = True,
+    )
     def __str__(self):
         return self.category_name
 
@@ -79,6 +97,16 @@ class Category_form1(models.Model):
         blank          = True, 
         null           = True
     )
+    label = models.CharField(
+        verbose_name = "項目名(あとから自動入力)",
+        default = '',
+        blank=True,
+        null = True,
+        max_length = 50,
+    )
+    def save(self):
+        self.label = self.parent.form1_name
+        super(Category_form1, self).save()
     def __str__(self):
         return self.category_name
 
@@ -109,7 +137,7 @@ class Category_form3(models.Model):
         verbose_name   = "親カテゴリ",
         on_delete      = models.CASCADE,
         blank          = True, 
-        null           = True
+        null           = True,
     )
     def __str__(self):
         return self.category_name
@@ -275,5 +303,5 @@ class Record(models.Model):
         self.unit          = self.resident.unit
         self.save()
     def __str__(self):
-        return self.form0 
+        return self.form0.category_name
 
