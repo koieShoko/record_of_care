@@ -272,8 +272,6 @@ class Record(models.Model):
         Category_form0,
         verbose_name   = "親カテゴリ",
         on_delete      = models.CASCADE,
-        blank          = True, 
-        null           = True
     )
     form1              = models.ForeignKey(
         Category_form1,

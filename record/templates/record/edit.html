@@ -5,9 +5,9 @@
             {{ form.non_field_errors }}
             {{ formset.management_form | linebreaksbr}}
             <tr>
-                {% for field in formset.form.visible_fields %}
+                {% for label in labels %}
                         <th>
-                            {{ field.label_tag }}
+                            {{ label }}
                         </th>
                 {% endfor %}
             </tr>
