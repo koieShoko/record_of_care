@@ -49,7 +49,7 @@ class RecordForm_ForWriteAll(forms.ModelForm):
                         'notice': forms.Textarea(attrs   = {'class': 'notice'}),
                         'date'  : forms.DateInput(attrs  = {'class': 'date'}),
                         'time'  : forms.TimeInput(format = '%H:%M'),
-                        'form0' : forms.Select(attrs = {'id':"form0"}),
+                        'form0' : forms.HiddenInput(),
                         'form1' : forms.Select(attrs = {'id':"form1"}),
                         'form2' : forms.Select(),
                         'form3' : forms.Select(),                    

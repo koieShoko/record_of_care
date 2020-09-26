@@ -46,7 +46,7 @@ def select_kind(request):
     submit_text = "選択完了"
     results     = {}
     if request.method == "POST":
-        request.session['selected_kind']=request.POST["form0"]
+        request.session['selected_kind'] =request.POST["form0"]
         return redirect('/write_all')
     else:#初回
         form = SelectKindForm()
@@ -62,8 +62,10 @@ def select_kind(request):
         )
 
 def write_all(request):
+    form0_id = request.session["selected_kind"] 
+    parent_category = Category_form0.objects.get(id=form0_id)
     title       = "ステップ2:   全員に共通する部分を書く"
-    explain     = None
+    explain     = str(parent_category) + "の記録"
     submit_text = "入力完了"
     if request.method == "POST":
         form=RecordForm_ForWriteAll(request.POST)                
@@ -85,7 +87,8 @@ def write_all(request):
         return redirect('/record/new')
     else:#初回
         form = RecordForm_ForWriteAll()
-        form.fields['form0'].initial = request.session["selected_kind"] 
+        form.fields['form0'].initial = form0_id
+        form.fields['form1'].queryset = Category_form1.objects.filter(parent = parent_category)
         return render(
             request,
             'record/search.html',
