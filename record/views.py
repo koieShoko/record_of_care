@@ -137,7 +137,7 @@ def record_new(request):
         x.update(dict_to_write_all)
     if request.method =="POST":#2回目
         formset=RecordFormSet(request.POST)
-        if not(formset.is_valid()):
+        if formset.is_valid():
             instances=formset.save(commit=False)
             i=0
             ruby_maker=Ruby_maker()
@@ -149,9 +149,10 @@ def record_new(request):
                 i+=1
             return redirect('check_translate')
         else:
-            for ele in formset:
-                print(ele)
-            return render('record/error.html')
+            return render(
+                request,
+                'record/error.html'
+                )
     else:#初回
         formset=RecordFormSet(initial=initial,queryset=Record.objects.none())
         form1 = category_form0.form1_name
@@ -159,8 +160,6 @@ def record_new(request):
         form3 = category_form0.form3_name
         labels = ["名前","時刻","種類", form1, form2, form3 ,"特記事項","職員"]
         request.session["edit_labels"] = labels
-        import inspect
-        print(dir(inspect.getmembers(formset)))
         return render(
             request,
             'record/edit.html',
@@ -229,12 +228,16 @@ def search_record(request):
                 labels = ["日付：", "場所："],
                 values = [date_ja, request.user.department + "階"]
             )
+        else:
+            return render(
+                request,
+                'record/error.html'
+            )
         return render(request,'record/read.html',{
                 'records'                : records,
                 'labels'                 : labels,
                 'title'                  : title,
-                'explain'                : mark_safe(explain),
-
+                'explain'                : mark_safe(explain)
         })
     else:#初回
         form = SearchRecordForm()
