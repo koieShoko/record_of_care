@@ -94,7 +94,6 @@ def write_all(request):
         form.fields['form1'].queryset = Category_form1.objects.filter(parent = category_form0)
         form.fields['form2'].queryset = Category_form2.objects.filter(parent = category_form0)
         form.fields['form3'].queryset = Category_form3.objects.filter(parent = category_form0)
-
         return render(
             request,
             'record/search.html',
@@ -143,7 +142,13 @@ def record_new(request):
             ruby_maker=Ruby_maker()
             for file in instances:
                 postKey="form-"+str(i)+"-notice"
-                file.translated_notice=Translater(request.POST[postKey]).translated_text
+                file.translated_notice = Translater(request.POST[postKey]).translated_text
+#↓ここからユーザー登録した名詞の変換
+                words = Technical_noun.objects.all()
+                for word in words:
+                    if word.before in file.translated_notice:
+                        file.translated_notice = file.translated_notice.replace(word.before,word.after) 
+#↑ここまでユーザー登録の名詞の変換
                 file.ruby_translated_notice = ruby_maker.output(file.translated_notice)
                 file.register()
                 i+=1
