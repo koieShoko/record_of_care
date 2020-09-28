@@ -303,3 +303,18 @@ class Record(models.Model):
     def __str__(self):
         return self.form0.category_name
 
+class Technical_noun(models.Model):
+        before             = models.CharField(
+            verbose_name   = "専門用語（名詞）",
+            max_length     = 1000,
+
+        )
+        after             = models.CharField(
+            verbose_name   = "変換後（名詞）",
+            max_length     = 1000,
+            
+        )
+        necessity_of_translate = models.BooleanField(
+            verbose_name   = "変換する(offの場合は解説として表示)",
+            default        = True,
+        )
