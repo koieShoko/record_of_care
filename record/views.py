@@ -24,8 +24,18 @@ def search_resident(request):
         return redirect('/select_kind')
     else:#初回
         form = SearchResidentForm()
+        residents = Resident.objects.filter(department=request.user.department,is_leaving=False) 
+        if len(residents) == 0 :
+            return render(
+                request,
+                'record/error.html',
+                {
+                    'title'         : "ごめんなさい、記入に失敗しました。",
+                    'explain'       : "あなたの所属部署には、まだ入居者が登録されていません。",                    
+                }
+            )
         choice =[
-            (resident, resident.full_name) for resident in Resident.objects.filter(department=request.user.department,is_leaving=False) 
+            (resident, resident.full_name) for resident in residents
         ]
         form.fields['resident'].choices = choice
         form.fields['resident'].initial = [x for x in Resident.objects.filter(department=request.user.department)] 
@@ -98,10 +108,10 @@ def write_all(request):
             request,
             'record/search.html',
             {
-                'form':form, 
-                'submit_text':submit_text,
-                'title':title,
-                'explain':explain,
+                'form'        : form, 
+                'submit_text' : submit_text,
+                'title'       : title,
+                'explain'     : explain,
             }
         )
 
@@ -150,7 +160,11 @@ def record_new(request):
         else:
             return render(
                 request,
-                'record/error.html'
+                'record/error.html',
+                {
+                    "title"   : "ごめんなさい、記録の登録に失敗しました",
+                    "explain" : "何か入力時効に不備があったようです。",
+                }
                 )
     else:#初回
         formset=RecordFormSet(initial=initial,queryset=Record.objects.none())
