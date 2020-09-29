@@ -21,27 +21,30 @@ class Ruby_maker():
             "grade"     : self.grade,
             "sentence"  : sentence,
         }
-        response    = requests.post(self.target_url, data=data)
-        root        = ET.fromstring(response.text)
-        ruby_dict   = {}
-        text        = []
+        try :
+            response    = requests.post(self.target_url, data=data)
+            root        = ET.fromstring(response.text)
+            ruby_dict   = {}
+            text        = []
 
-        for line in root:
-            if len(line) == 0:#変換の対象がない時は処理しない
-                return
-            for word_list in line[0]:
-                kanzi = word_list[0].text
-                text.append(kanzi)
-                if len(word_list) > 1:#ルビがあれば
-                    ruby = word_list[1].text
-                    ruby_dict[kanzi] = ruby
-        html_list=[]      
-        for word in text:
-            if word in list(ruby_dict.keys()):
-                html_list.append("<ruby> {} <rp>".format(word))
-                html_list.append("（</rp><rt>{}</rt><rp>）</rp></ruby>".format(ruby_dict[word]))        
-            else:
-                html_list.append(word)
-        html_text="".join(html_list)          
-        return html_text
-
+            for line in root:
+                if len(line) == 0:#変換の対象がない時は処理しない
+                    return
+                for word_list in line[0]:
+                    kanzi = word_list[0].text
+                    text.append(kanzi)
+                    if len(word_list) > 1:#ルビがあれば
+                        ruby = word_list[1].text
+                        ruby_dict[kanzi] = ruby
+            html_list=[]      
+            for word in text:
+                if word in list(ruby_dict.keys()):
+                    html_list.append("<ruby> {} <rp>".format(word))
+                    html_list.append("（</rp><rt>{}</rt><rp>）</rp></ruby>".format(ruby_dict[word]))        
+                else:
+                    html_list.append(word)
+            html_text="".join(html_list)
+            return html_text
+        except :
+            print("yohoo!ふりがなAPIへの接続に失敗しました")
+            return sentence

@@ -53,8 +53,6 @@ class Technical_term_translater():
 		with open(path2) as f:
 			rows=csv.reader(f)
 			kaigoDict.update(dict([row  for row in rows]))
-
-
 		#言いかえ
 		i=0
 		f2=""
@@ -151,7 +149,7 @@ class General_term_ranslater():
 		self.make_general_term_dict_from_existing_csv(path)
 
 		self.translate(text)
-
+		
 	def make_general_term_dict_from_existing_csv(self,path):
 		#介護用語の辞書を読み込む（あらかじめ作って置いたのを読み込むパターン）
 		import csv
@@ -247,5 +245,6 @@ class Users_term_ranslater():
 		from record.models import Technical_noun
 		technical_nouns = Technical_noun.objects.all()
 		for technical_noun in technical_nouns:
-			text = text.replace(technical_noun.before, technical_noun.after)
+			if technical_noun.before in text and technical_noun.necessity_of_translate == True:
+				text = text.replace(technical_noun.before, technical_noun.after)
 		return text

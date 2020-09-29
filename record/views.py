@@ -143,12 +143,6 @@ def record_new(request):
             for file in instances:
                 postKey="form-"+str(i)+"-notice"
                 file.translated_notice = Translater(request.POST[postKey]).translated_text
-#↓ここからユーザー登録した名詞の変換
-#                words = Technical_noun.objects.all()
-#                for word in words:
-#                    if word.before in file.translated_notice:
-#                        file.translated_notice = file.translated_notice.replace(word.before,word.after) 
-#↑ここまでユーザー登録の名詞の変換
                 file.ruby_translated_notice = ruby_maker.output(file.translated_notice)
                 file.register()
                 i+=1
@@ -163,7 +157,7 @@ def record_new(request):
         form1 = category_form0.form1_name
         form2 = category_form0.form2_name
         form3 = category_form0.form3_name
-        labels = ["名前","時刻","種類", form1, form2, form3 ,"特記事項","職員"]
+        labels = ["名前","時刻","種類", form1, form2, form3 ,"特記事項", "特記事項（変換後）"]
         request.session["edit_labels"] = labels
         return render(
             request,

@@ -15,7 +15,6 @@ class RecordForm(forms.ModelForm):
                         'form2',
                         'form3',
                         'notice',
-                        'staff',
                         'translated_notice',
                 )
                 widgets = {
