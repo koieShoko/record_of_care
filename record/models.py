@@ -6,6 +6,9 @@ from account.models import User
 
 
 class Resident(models.Model):
+    class Meta:
+        verbose_name        =  "入居者"#adminでの表記
+        verbose_name_plural =  "入居者"#adminでsつけない
     full_name          = models.CharField(
         verbose_name   = "名前",
         max_length     = 128)
@@ -56,6 +59,9 @@ class Resident(models.Model):
 
 
 class Category_form0(models.Model):
+    class Meta:
+        verbose_name        =  "記録の種類"
+        verbose_name_plural =  "記録の種類"
     category_name = models.CharField(
         verbose_name = "カテゴリ名",
         default = '',
@@ -85,6 +91,9 @@ class Category_form0(models.Model):
 
 
 class Category_form1(models.Model):
+    class Meta:
+        verbose_name        =  "情報1"
+        verbose_name_plural =  "情報1"
     category_name= models.CharField(
         verbose_name = "カテゴリ名",
         default = '',
@@ -111,6 +120,9 @@ class Category_form1(models.Model):
         return self.category_name
 
 class Category_form2(models.Model):
+    class Meta:
+        verbose_name        =  "情報2"
+        verbose_name_plural =  "情報2"
     category_name= models.CharField(
         verbose_name = "カテゴリ名",
         default = '',
@@ -127,6 +139,9 @@ class Category_form2(models.Model):
         return self.category_name
 
 class Category_form3(models.Model):
+    class Meta:
+        verbose_name        =  "情報3"
+        verbose_name_plural =  "情報3"
     category_name= models.CharField(
         verbose_name = "カテゴリ名",
         default = '',
@@ -153,6 +168,9 @@ class Category_form3(models.Model):
 
 
 class Staff(User):
+    class Meta:
+        verbose_name        =  "職員"
+        verbose_name_plural =  "職員"
     full_name          = models.CharField(
         verbose_name   = "名前",
         max_length     = 128)
@@ -197,6 +215,9 @@ class Staff(User):
         return self.full_name   
 
 class Record(models.Model):
+    class Meta:
+        verbose_name        =  "記録"
+        verbose_name_plural =  "記録"
     resident           = models.ForeignKey(
         Resident,
         verbose_name   = "利用者",
@@ -304,17 +325,18 @@ class Record(models.Model):
         return self.form0.category_name
 
 class Technical_noun(models.Model):
-        before             = models.CharField(
-            verbose_name   = "専門用語（名詞）",
-            max_length     = 1000,
-
-        )
-        after             = models.CharField(
-            verbose_name   = "変換後（名詞）",
-            max_length     = 1000,
-            
-        )
-        necessity_of_translate = models.BooleanField(
-            verbose_name   = "変換する(offの場合は解説として表示)",
-            default        = True,
-        )
+    class Meta:
+        verbose_name        =  "登録したい用語"
+        verbose_name_plural =  "登録したい用語"
+    before             = models.CharField(
+        verbose_name   = "専門用語（名詞）",
+        max_length     = 1000,
+    )
+    after             = models.CharField(
+        verbose_name   = "変換後（名詞）",
+        max_length     = 1000,        
+    )
+    necessity_of_translate = models.BooleanField(
+        verbose_name   = "変換する(offの場合は解説として表示)",
+        default        = True,
+    )

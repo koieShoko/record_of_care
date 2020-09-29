@@ -144,10 +144,10 @@ def record_new(request):
                 postKey="form-"+str(i)+"-notice"
                 file.translated_notice = Translater(request.POST[postKey]).translated_text
 #↓ここからユーザー登録した名詞の変換
-                words = Technical_noun.objects.all()
-                for word in words:
-                    if word.before in file.translated_notice:
-                        file.translated_notice = file.translated_notice.replace(word.before,word.after) 
+#                words = Technical_noun.objects.all()
+#                for word in words:
+#                    if word.before in file.translated_notice:
+#                        file.translated_notice = file.translated_notice.replace(word.before,word.after) 
 #↑ここまでユーザー登録の名詞の変換
                 file.ruby_translated_notice = ruby_maker.output(file.translated_notice)
                 file.register()

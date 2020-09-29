@@ -2,9 +2,11 @@
 class Translater():
 	translated_text=""
 	def __init__(self,text):
-		t_translated_text=Technical_term_translater(text).translated_text
-		g_translated_text=General_term_ranslater(t_translated_text).translated_text
-		self.translated_text=g_translated_text
+		t_translated_text    = Technical_term_translater(text).translated_text
+		g_translated_text    = General_term_ranslater(t_translated_text).translated_text
+		u_translated_text    = Users_term_ranslater(). translate_by_users_dict(g_translated_text)
+		self.translated_text = u_translated_text
+	
 
 
 
@@ -239,3 +241,11 @@ def wakatigaki(text):
 
 
 
+
+class Users_term_ranslater():
+	def translate_by_users_dict(self,text):
+		from record.models import Technical_noun
+		technical_nouns = Technical_noun.objects.all()
+		for technical_noun in technical_nouns:
+			text = text.replace(technical_noun.before, technical_noun.after)
+		return text
