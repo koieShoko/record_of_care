@@ -48,3 +48,10 @@ class Ruby_maker():
         except :
             print("yohoo!ふりがなAPIへの接続に失敗しました")
             return sentence
+
+if __name__ == '__main__':
+    r = Ruby_maker()
+    result1 = r.output("食事記録を書く")
+    result2 = r.output("日誌を読む")
+    result3 = r.output("やさしい介護記録")
+    print(result1, result2, result3)

@@ -160,13 +160,6 @@ class Category_form3(models.Model):
 
 
 
-
-
-
-
-
-
-
 class Staff(User):
     class Meta:
         verbose_name        =  "職員"

@@ -23,6 +23,7 @@ def search_resident(request):
         request.session['checked_residents']=request.POST.getlist('resident')
         return redirect('/select_kind')
     else:#初回
+        request.session["selected_operation"] =  "write"
         form = SearchResidentForm()
         residents = Resident.objects.filter(department=request.user.department,is_leaving=False) 
         if len(residents) == 0 :
@@ -253,6 +254,7 @@ def search_record(request):
                 'explain'                : mark_safe(explain)
         })
     else:#初回
+        request.session["selected_operation"] =  "read"
         form = SearchRecordForm()
         return render(request, 'record/search.html', {
                 'form'          : form, 

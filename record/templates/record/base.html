@@ -11,14 +11,65 @@
         <div class="content container">
             <div class="row">
                 <div class="page-header">
-                    <a href="/"><h1>やさしい介護記録</h1></a>
+                    <a href="/">
+                    {% if request.user.reading_support == True %}     
+                        <h1>
+                            やさしい<ruby>介護記録<rp>（</rp><rt>かいごきろく</rt><rp>）</rp></ruby>
+                        </h1></a>
+                    {% else %}
+                        <h1>
+                            やさしい介護記録
+                        </h1></a>
+                    {% endif %}
+
+
+
                     <ul id="header">
                     <!--           <a href="" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a> -->
                     {%if request.user.full_name%}
                         <li id="base_name">ようこそ、{{request.user.full_name}}さん:</li>
                     {% endif %}
-                        <li><a href="/resident/search/">食事記録を書く</a></li>
-                        <li><a href="/record/search/">日誌を読む</a></li>
+                    {% if request.user.reading_support == True %}                    
+                        <li><a href="/resident/search/">
+                        {%  if request.session.selected_operation == "write" %}
+                            <div style="background-color:#FFCCD4; border-radius: 5px;">
+                        {% else %}
+                            <div>
+                        {% endif %}
+                                🖊 <ruby> 書<rp>（</rp><rt>か</rt><rp>）</rp></ruby>く</a>
+                            </div>
+                        </li>
+                        <li>
+                        {%  if request.session.selected_operation == "read" %}
+                            <div style="background-color:#FFCCD4; border-radius: 5px;">
+                        {% else %}
+                            <div>
+                        {% endif %}
+                            <a href="/record/search/">
+                                📖  <ruby>読<rp>（</rp><rt>よ</rt><rp>）</rp>む                          </ruby>
+                            </a></div>
+                        </li>
+                    {% else %}                    
+                        <li>
+                        {%  if request.session.selected_operation == "write" %}
+                                <div style="background-color:#FFCCD4; border-radius: 5px;">
+                        {% else %}
+                                <div>
+                        {% endif %}
+                                    <a href="/resident/search/">日誌を書く</a>🖊
+                                </div>
+                            </li>
+                            <li>
+                        {%  if request.session.selected_operation == "read" %}
+                                <div style="background-color:#FFCCD4; border-radius: 5px;">
+                        {% else %}
+                                <div>
+                        {% endif %}
+                                    <a href="/record/search/">日誌を読む</a>📖
+                                </div>
+                            </li>
+                    {% endif %}
+
                         <li id="mode_button">
                             <a href="/account/mode/">
                                 <div class="base_easy_container">
