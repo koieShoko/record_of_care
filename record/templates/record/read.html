@@ -46,10 +46,10 @@
                         {{ record.ruby_translated_notice| default_if_none:"" | safe }}
                     </td>
                 {% endif %}
-                <td>
-                    {{ record.staff }}
-                </td>
-                <tr>
+                    <td>
+                        {{ record.staff.full_name }}
+                    </td>
+                </tr>
             {% endfor %}
         </table>
 

@@ -225,7 +225,6 @@ class Record(models.Model):
         Staff,
         verbose_name   = "職員",
         on_delete      = models.CASCADE,
-        blank          = True, 
         null           = True
     )
     date               = models.DateField(

@@ -1,20 +1,1773 @@
 [
   {
-    "model": "account.user",
+    "model": "contenttypes.contenttype",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$150000$bu3BGjXZYPJi$MwzJ1ksRc/7l5uXRG7qG8bASehqPrBac7soiAQLGSkA=",
-      "last_login": "2020-09-26T11:58:03Z",
+      "app_label": "admin",
+      "model": "logentry"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+      "app_label": "auth",
+      "model": "permission"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+      "app_label": "auth",
+      "model": "group"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+      "app_label": "contenttypes",
+      "model": "contenttype"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+      "app_label": "sessions",
+      "model": "session"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+      "app_label": "record",
+      "model": "staff"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+      "app_label": "record",
+      "model": "category_form0"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+      "app_label": "record",
+      "model": "category_form1"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+      "app_label": "record",
+      "model": "category_form2"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+      "app_label": "record",
+      "model": "category_form3"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+      "app_label": "record",
+      "model": "resident"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": {
+      "app_label": "record",
+      "model": "technical_noun"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": {
+      "app_label": "record",
+      "model": "record"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 14,
+    "fields": {
+      "app_label": "account",
+      "model": "user"
+    }
+  },
+  {
+    "model": "record.resident",
+    "pk": 1,
+    "fields": {
+      "full_name": "松沢 大吾",
+      "kana_full_name": "まつさわ だいご",
+      "birthday": "1940-01-21",
+      "department": "2",
+      "unit": "東",
+      "room": 201,
+      "is_leaving": false
+    }
+  },
+  {
+    "model": "record.resident",
+    "pk": 2,
+    "fields": {
+      "full_name": "大山 美沙",
+      "kana_full_name": "おおやま みさ",
+      "birthday": "1935-06-10",
+      "department": "2",
+      "unit": "東",
+      "room": 203,
+      "is_leaving": false
+    }
+  },
+  {
+    "model": "record.resident",
+    "pk": 3,
+    "fields": {
+      "full_name": "山田 康子",
+      "kana_full_name": "やまだ やすこ",
+      "birthday": "1932-12-10",
+      "department": "2",
+      "unit": "東",
+      "room": 205,
+      "is_leaving": false
+    }
+  },
+  {
+    "model": "record.resident",
+    "pk": 4,
+    "fields": {
+      "full_name": "小柴 文子",
+      "kana_full_name": "こしば あやこ",
+      "birthday": "1939-06-21",
+      "department": "2",
+      "unit": "東",
+      "room": 209,
+      "is_leaving": false
+    }
+  },
+  {
+    "model": "record.resident",
+    "pk": 5,
+    "fields": {
+      "full_name": "湯川 勝子",
+      "kana_full_name": "ゆかわ かつこ",
+      "birthday": "1938-07-31",
+      "department": "2",
+      "unit": "東",
+      "room": 210,
+      "is_leaving": false
+    }
+  },
+  {
+    "model": "record.resident",
+    "pk": 6,
+    "fields": {
+      "full_name": "宇佐美 加奈子",
+      "kana_full_name": "うさみ かなこ",
+      "birthday": "1936-08-25",
+      "department": "2",
+      "unit": "東",
+      "room": 207,
+      "is_leaving": false
+    }
+  },
+  {
+    "model": "record.category_form0",
+    "pk": 1,
+    "fields": {
+      "category_name": "食事",
+      "form1_name": "朝昼夕",
+      "form2_name": "主食量",
+      "form3_name": "副食量"
+    }
+  },
+  {
+    "model": "record.category_form0",
+    "pk": 2,
+    "fields": {
+      "category_name": "入浴",
+      "form1_name": "入浴有無",
+      "form2_name": "入浴種類",
+      "form3_name": "爪切り実施"
+    }
+  },
+  {
+    "model": "record.category_form0",
+    "pk": 3,
+    "fields": {
+      "category_name": "排泄",
+      "form1_name": "種別",
+      "form2_name": "",
+      "form3_name": ""
+    }
+  },
+  {
+    "model": "record.category_form0",
+    "pk": 4,
+    "fields": {
+      "category_name": "夜間",
+      "form1_name": "",
+      "form2_name": "",
+      "form3_name": ""
+    }
+  },
+  {
+    "model": "record.category_form0",
+    "pk": 5,
+    "fields": {
+      "category_name": "生活リハビリ",
+      "form1_name": "種別1",
+      "form2_name": "種別2",
+      "form3_name": "種別3"
+    }
+  },
+  {
+    "model": "record.category_form0",
+    "pk": 6,
+    "fields": {
+      "category_name": "医療",
+      "form1_name": "",
+      "form2_name": "",
+      "form3_name": ""
+    }
+  },
+  {
+    "model": "record.category_form1",
+    "pk": 1,
+    "fields": {
+      "category_name": "朝食",
+      "parent": 1,
+      "label": "朝昼夕"
+    }
+  },
+  {
+    "model": "record.category_form1",
+    "pk": 2,
+    "fields": {
+      "category_name": "昼食",
+      "parent": 1,
+      "label": "朝昼夕"
+    }
+  },
+  {
+    "model": "record.category_form1",
+    "pk": 3,
+    "fields": {
+      "category_name": "夕食",
+      "parent": 1,
+      "label": "朝昼夕"
+    }
+  },
+  {
+    "model": "record.category_form1",
+    "pk": 4,
+    "fields": {
+      "category_name": "有り",
+      "parent": 2,
+      "label": "入浴有無"
+    }
+  },
+  {
+    "model": "record.category_form1",
+    "pk": 5,
+    "fields": {
+      "category_name": "無し",
+      "parent": 2,
+      "label": "入浴有無"
+    }
+  },
+  {
+    "model": "record.category_form1",
+    "pk": 6,
+    "fields": {
+      "category_name": "水分",
+      "parent": 1,
+      "label": "朝昼夕"
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 1,
+    "fields": {
+      "category_name": "1",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 2,
+    "fields": {
+      "category_name": "2",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 3,
+    "fields": {
+      "category_name": "3",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 4,
+    "fields": {
+      "category_name": "4",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 5,
+    "fields": {
+      "category_name": "5",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 6,
+    "fields": {
+      "category_name": "6",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 7,
+    "fields": {
+      "category_name": "7",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 8,
+    "fields": {
+      "category_name": "8",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 9,
+    "fields": {
+      "category_name": "9",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 10,
+    "fields": {
+      "category_name": "10",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 11,
+    "fields": {
+      "category_name": "清拭",
+      "parent": 2
+    }
+  },
+  {
+    "model": "record.category_form2",
+    "pk": 12,
+    "fields": {
+      "category_name": "入浴",
+      "parent": 2
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 1,
+    "fields": {
+      "category_name": "0",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 2,
+    "fields": {
+      "category_name": "1",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 3,
+    "fields": {
+      "category_name": "2",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 4,
+    "fields": {
+      "category_name": "3",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 5,
+    "fields": {
+      "category_name": "4",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 6,
+    "fields": {
+      "category_name": "5",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 7,
+    "fields": {
+      "category_name": "6",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 8,
+    "fields": {
+      "category_name": "7",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 9,
+    "fields": {
+      "category_name": "8",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 10,
+    "fields": {
+      "category_name": "9",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 11,
+    "fields": {
+      "category_name": "10",
+      "parent": 1
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 12,
+    "fields": {
+      "category_name": "有り",
+      "parent": 2
+    }
+  },
+  {
+    "model": "record.category_form3",
+    "pk": 13,
+    "fields": {
+      "category_name": "無し",
+      "parent": 2
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+      "name": "Can add log entry",
+      "content_type": 1,
+      "codename": "add_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+      "name": "Can change log entry",
+      "content_type": 1,
+      "codename": "change_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+      "name": "Can delete log entry",
+      "content_type": 1,
+      "codename": "delete_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+      "name": "Can view log entry",
+      "content_type": 1,
+      "codename": "view_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+      "name": "Can add permission",
+      "content_type": 2,
+      "codename": "add_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+      "name": "Can change permission",
+      "content_type": 2,
+      "codename": "change_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+      "name": "Can delete permission",
+      "content_type": 2,
+      "codename": "delete_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+      "name": "Can view permission",
+      "content_type": 2,
+      "codename": "view_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+      "name": "Can add group",
+      "content_type": 3,
+      "codename": "add_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+      "name": "Can change group",
+      "content_type": 3,
+      "codename": "change_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+      "name": "Can delete group",
+      "content_type": 3,
+      "codename": "delete_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+      "name": "Can view group",
+      "content_type": 3,
+      "codename": "view_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+      "name": "Can add content type",
+      "content_type": 4,
+      "codename": "add_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+      "name": "Can change content type",
+      "content_type": 4,
+      "codename": "change_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+      "name": "Can delete content type",
+      "content_type": 4,
+      "codename": "delete_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+      "name": "Can view content type",
+      "content_type": 4,
+      "codename": "view_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+      "name": "Can add session",
+      "content_type": 5,
+      "codename": "add_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+      "name": "Can change session",
+      "content_type": 5,
+      "codename": "change_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+      "name": "Can delete session",
+      "content_type": 5,
+      "codename": "delete_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+      "name": "Can view session",
+      "content_type": 5,
+      "codename": "view_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+      "name": "Can add 職員",
+      "content_type": 6,
+      "codename": "add_staff"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+      "name": "Can change 職員",
+      "content_type": 6,
+      "codename": "change_staff"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+      "name": "Can delete 職員",
+      "content_type": 6,
+      "codename": "delete_staff"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+      "name": "Can view 職員",
+      "content_type": 6,
+      "codename": "view_staff"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+      "name": "Can add 記録の種類",
+      "content_type": 7,
+      "codename": "add_category_form0"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+      "name": "Can change 記録の種類",
+      "content_type": 7,
+      "codename": "change_category_form0"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+      "name": "Can delete 記録の種類",
+      "content_type": 7,
+      "codename": "delete_category_form0"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+      "name": "Can view 記録の種類",
+      "content_type": 7,
+      "codename": "view_category_form0"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+      "name": "Can add 情報1",
+      "content_type": 8,
+      "codename": "add_category_form1"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+      "name": "Can change 情報1",
+      "content_type": 8,
+      "codename": "change_category_form1"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+      "name": "Can delete 情報1",
+      "content_type": 8,
+      "codename": "delete_category_form1"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+      "name": "Can view 情報1",
+      "content_type": 8,
+      "codename": "view_category_form1"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+      "name": "Can add 情報2",
+      "content_type": 9,
+      "codename": "add_category_form2"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+      "name": "Can change 情報2",
+      "content_type": 9,
+      "codename": "change_category_form2"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+      "name": "Can delete 情報2",
+      "content_type": 9,
+      "codename": "delete_category_form2"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+      "name": "Can view 情報2",
+      "content_type": 9,
+      "codename": "view_category_form2"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+      "name": "Can add 情報3",
+      "content_type": 10,
+      "codename": "add_category_form3"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+      "name": "Can change 情報3",
+      "content_type": 10,
+      "codename": "change_category_form3"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+      "name": "Can delete 情報3",
+      "content_type": 10,
+      "codename": "delete_category_form3"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+      "name": "Can view 情報3",
+      "content_type": 10,
+      "codename": "view_category_form3"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+      "name": "Can add 入居者",
+      "content_type": 11,
+      "codename": "add_resident"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+      "name": "Can change 入居者",
+      "content_type": 11,
+      "codename": "change_resident"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+      "name": "Can delete 入居者",
+      "content_type": 11,
+      "codename": "delete_resident"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+      "name": "Can view 入居者",
+      "content_type": 11,
+      "codename": "view_resident"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+      "name": "Can add 登録したい用語",
+      "content_type": 12,
+      "codename": "add_technical_noun"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+      "name": "Can change 登録したい用語",
+      "content_type": 12,
+      "codename": "change_technical_noun"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+      "name": "Can delete 登録したい用語",
+      "content_type": 12,
+      "codename": "delete_technical_noun"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+      "name": "Can view 登録したい用語",
+      "content_type": 12,
+      "codename": "view_technical_noun"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+      "name": "Can add 記録",
+      "content_type": 13,
+      "codename": "add_record"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+      "name": "Can change 記録",
+      "content_type": 13,
+      "codename": "change_record"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+      "name": "Can delete 記録",
+      "content_type": 13,
+      "codename": "delete_record"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+      "name": "Can view 記録",
+      "content_type": 13,
+      "codename": "view_record"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+      "name": "Can add user",
+      "content_type": 14,
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+      "name": "Can change user",
+      "content_type": 14,
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+      "name": "Can delete user",
+      "content_type": 14,
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+      "name": "Can view user",
+      "content_type": 14,
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$150000$BxiuKBKstK5B$HGqn2f9vrUneHjy/dD9QdDik3iGzK4rNWYA6eDRlLGg=",
+      "last_login": "2020-10-05T06:12:17.992Z",
       "is_superuser": true,
-      "username": "koie",
-      "first_name": "",
-      "last_name": "",
+      "username": "kic",
+      "first_name": "翔子",
+      "last_name": "古家",
       "email": "",
       "is_staff": true,
       "is_active": true,
-      "date_joined": "2020-09-26T11:57:29Z",
+      "date_joined": "2020-10-05T06:08:57Z",
       "groups": [],
       "user_permissions": []
+    }
+  },
+  {
+    "model": "account.user",
+    "pk": 3,
+    "fields": {
+      "password": "tanaka",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "tanaka",
+      "first_name": "花子",
+      "last_name": "田中",
+      "email": "",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2020-10-05T11:25:15Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "record.staff",
+    "pk": 2,
+    "fields": {
+      "full_name": "古家 翔子",
+      "kana_full_name": "こいえ しょうこ",
+      "department": "2",
+      "is_leaving": false,
+      "occupation": "CS",
+      "reading_support": true
+    }
+  },
+  {
+    "model": "record.staff",
+    "pk": 3,
+    "fields": {
+      "full_name": "田中 花子",
+      "kana_full_name": "たなか はなこ",
+      "department": "2",
+      "is_leaving": false,
+      "occupation": "CS",
+      "reading_support": false
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+      "action_time": "2020-10-05T06:10:45.775Z",
+      "user": 2,
+      "content_type": 6,
+      "object_id": "2",
+      "object_repr": "古家 翔子",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"first_name\", \"last_name\", \"full_name\", \"kana_full_name\", \"department\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+      "action_time": "2020-10-05T06:11:11.232Z",
+      "user": 2,
+      "content_type": 14,
+      "object_id": "1",
+      "object_repr": "koie",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+      "action_time": "2020-10-05T06:14:16.916Z",
+      "user": 2,
+      "content_type": 7,
+      "object_id": "1",
+      "object_repr": "食事",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+      "action_time": "2020-10-05T06:14:55.137Z",
+      "user": 2,
+      "content_type": 7,
+      "object_id": "2",
+      "object_repr": "入浴",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+      "action_time": "2020-10-05T06:15:18.319Z",
+      "user": 2,
+      "content_type": 8,
+      "object_id": "1",
+      "object_repr": "朝",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+      "action_time": "2020-10-05T06:15:32.840Z",
+      "user": 2,
+      "content_type": 8,
+      "object_id": "2",
+      "object_repr": "昼食",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+      "action_time": "2020-10-05T06:15:40.996Z",
+      "user": 2,
+      "content_type": 8,
+      "object_id": "3",
+      "object_repr": "夕食",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+      "action_time": "2020-10-05T06:15:53.171Z",
+      "user": 2,
+      "content_type": 8,
+      "object_id": "1",
+      "object_repr": "朝食",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"category_name\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 9,
+    "fields": {
+      "action_time": "2020-10-05T06:22:06.260Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "1",
+      "object_repr": "1",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 10,
+    "fields": {
+      "action_time": "2020-10-05T06:22:11.311Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "2",
+      "object_repr": "2",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 11,
+    "fields": {
+      "action_time": "2020-10-05T06:22:17.547Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "3",
+      "object_repr": "3",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 12,
+    "fields": {
+      "action_time": "2020-10-05T06:22:22.582Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "4",
+      "object_repr": "4",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 13,
+    "fields": {
+      "action_time": "2020-10-05T06:22:28.580Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "5",
+      "object_repr": "5",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 14,
+    "fields": {
+      "action_time": "2020-10-05T06:22:39.415Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "6",
+      "object_repr": "6",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 15,
+    "fields": {
+      "action_time": "2020-10-05T06:22:44.826Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "7",
+      "object_repr": "7",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 16,
+    "fields": {
+      "action_time": "2020-10-05T06:22:51.716Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "8",
+      "object_repr": "8",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 17,
+    "fields": {
+      "action_time": "2020-10-05T06:23:00.358Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "9",
+      "object_repr": "9",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 18,
+    "fields": {
+      "action_time": "2020-10-05T06:23:05.603Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "10",
+      "object_repr": "10",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 19,
+    "fields": {
+      "action_time": "2020-10-05T06:23:18.280Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "1",
+      "object_repr": "0",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 20,
+    "fields": {
+      "action_time": "2020-10-05T06:23:23.331Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "2",
+      "object_repr": "1",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 21,
+    "fields": {
+      "action_time": "2020-10-05T06:23:28.022Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "3",
+      "object_repr": "2",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 22,
+    "fields": {
+      "action_time": "2020-10-05T06:23:33.143Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "4",
+      "object_repr": "3",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 23,
+    "fields": {
+      "action_time": "2020-10-05T06:23:37.385Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "5",
+      "object_repr": "4",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 24,
+    "fields": {
+      "action_time": "2020-10-05T06:23:41.912Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "6",
+      "object_repr": "5",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 25,
+    "fields": {
+      "action_time": "2020-10-05T06:23:48.846Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "7",
+      "object_repr": "6",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 26,
+    "fields": {
+      "action_time": "2020-10-05T06:23:53.770Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "8",
+      "object_repr": "7",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 27,
+    "fields": {
+      "action_time": "2020-10-05T06:23:57.932Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "9",
+      "object_repr": "8",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 28,
+    "fields": {
+      "action_time": "2020-10-05T06:24:03.610Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "10",
+      "object_repr": "9",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 29,
+    "fields": {
+      "action_time": "2020-10-05T06:24:09.303Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "11",
+      "object_repr": "10",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 30,
+    "fields": {
+      "action_time": "2020-10-05T06:26:39.016Z",
+      "user": 2,
+      "content_type": 11,
+      "object_id": "1",
+      "object_repr": "松沢 大吾",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 31,
+    "fields": {
+      "action_time": "2020-10-05T10:59:47.802Z",
+      "user": 2,
+      "content_type": 8,
+      "object_id": "4",
+      "object_repr": "有",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 32,
+    "fields": {
+      "action_time": "2020-10-05T11:00:02.202Z",
+      "user": 2,
+      "content_type": 8,
+      "object_id": "5",
+      "object_repr": "無し",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 33,
+    "fields": {
+      "action_time": "2020-10-05T11:00:11.971Z",
+      "user": 2,
+      "content_type": 8,
+      "object_id": "4",
+      "object_repr": "有り",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"category_name\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 34,
+    "fields": {
+      "action_time": "2020-10-05T11:01:03.674Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "11",
+      "object_repr": "清拭",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 35,
+    "fields": {
+      "action_time": "2020-10-05T11:01:48.596Z",
+      "user": 2,
+      "content_type": 9,
+      "object_id": "12",
+      "object_repr": "入浴",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 36,
+    "fields": {
+      "action_time": "2020-10-05T11:02:36.211Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "12",
+      "object_repr": "有り",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 37,
+    "fields": {
+      "action_time": "2020-10-05T11:02:47.598Z",
+      "user": 2,
+      "content_type": 10,
+      "object_id": "13",
+      "object_repr": "無し",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 38,
+    "fields": {
+      "action_time": "2020-10-05T11:07:28.990Z",
+      "user": 2,
+      "content_type": 8,
+      "object_id": "6",
+      "object_repr": "水分",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 39,
+    "fields": {
+      "action_time": "2020-10-05T11:08:51.863Z",
+      "user": 2,
+      "content_type": 7,
+      "object_id": "3",
+      "object_repr": "排泄",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 40,
+    "fields": {
+      "action_time": "2020-10-05T11:09:34.288Z",
+      "user": 2,
+      "content_type": 7,
+      "object_id": "4",
+      "object_repr": "夜間",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 41,
+    "fields": {
+      "action_time": "2020-10-05T11:10:32.562Z",
+      "user": 2,
+      "content_type": 7,
+      "object_id": "5",
+      "object_repr": "生活リハビリ",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 42,
+    "fields": {
+      "action_time": "2020-10-05T11:10:54.153Z",
+      "user": 2,
+      "content_type": 7,
+      "object_id": "5",
+      "object_repr": "生活リハビリ",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"form3_name\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 43,
+    "fields": {
+      "action_time": "2020-10-05T11:11:18.404Z",
+      "user": 2,
+      "content_type": 7,
+      "object_id": "6",
+      "object_repr": "医療",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 44,
+    "fields": {
+      "action_time": "2020-10-05T11:16:51.828Z",
+      "user": 2,
+      "content_type": 11,
+      "object_id": "2",
+      "object_repr": "大山 美沙",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 45,
+    "fields": {
+      "action_time": "2020-10-05T11:17:36.185Z",
+      "user": 2,
+      "content_type": 11,
+      "object_id": "3",
+      "object_repr": "山田 康子",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 46,
+    "fields": {
+      "action_time": "2020-10-05T11:18:42.398Z",
+      "user": 2,
+      "content_type": 11,
+      "object_id": "4",
+      "object_repr": "小柴 文子",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 47,
+    "fields": {
+      "action_time": "2020-10-05T11:19:42.435Z",
+      "user": 2,
+      "content_type": 11,
+      "object_id": "5",
+      "object_repr": "湯川 勝子",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 48,
+    "fields": {
+      "action_time": "2020-10-05T11:26:21.203Z",
+      "user": 2,
+      "content_type": 6,
+      "object_id": "3",
+      "object_repr": "田中 花子",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 49,
+    "fields": {
+      "action_time": "2020-10-06T05:27:08.099Z",
+      "user": 2,
+      "content_type": 11,
+      "object_id": "6",
+      "object_repr": "宇佐美 加奈子",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "record.record",
+    "pk": 1,
+    "fields": {
+      "resident": 1,
+      "room": 201,
+      "staff": null,
+      "date": "2020-10-05",
+      "time": "07:00:00",
+      "notice": "誤嚥",
+      "translated_notice": "誤嚥",
+      "ruby_translated_notice": "誤嚥",
+      "written_date": "2020-10-05T06:27:00.065Z",
+      "department": "2",
+      "unit": "東",
+      "isTranslated": true,
+      "form0": 1,
+      "form1": 1,
+      "form2": 1,
+      "form3": 7
+    }
+  },
+  {
+    "model": "record.record",
+    "pk": 2,
+    "fields": {
+      "resident": 1,
+      "room": 201,
+      "staff": null,
+      "date": "2020-10-05",
+      "time": "07:00:00",
+      "notice": "嚥下",
+      "translated_notice": "飲み込み",
+      "ruby_translated_notice": "飲み込み",
+      "written_date": "2020-10-05T06:27:17.133Z",
+      "department": "2",
+      "unit": "東",
+      "isTranslated": true,
+      "form0": 1,
+      "form1": 1,
+      "form2": 1,
+      "form3": 7
+    }
+  },
+  {
+    "model": "record.record",
+    "pk": 3,
+    "fields": {
+      "resident": 1,
+      "room": 201,
+      "staff": null,
+      "date": "2020-10-05",
+      "time": "07:00:00",
+      "notice": "嚥下良好",
+      "translated_notice": "飲み込み良好。",
+      "ruby_translated_notice": "飲み込み良好",
+      "written_date": "2020-10-05T06:41:38.322Z",
+      "department": "2",
+      "unit": "東",
+      "isTranslated": true,
+      "form0": 1,
+      "form1": 1,
+      "form2": 5,
+      "form3": 6
     }
   }
 ]
