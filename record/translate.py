@@ -1,4 +1,6 @@
 
+
+#ここがmain
 class Translater():
 	translated_text=""
 	def __init__(self,text):
@@ -9,12 +11,17 @@ class Translater():
 	
 
 
-
-
-#2つの文の品詞情報の比較をしたいけど
-#MeCabは同時に複数のTaggerを持てない（上書きされる）ので
-#タプルのリストとして情報を保管しておいて使う
-class WordInfo():
+#Text_parser#########################
+#入力 ：文章（文字列）
+#処理 ：文章を形態素に区切り、各々の形態素の特徴を分析する
+#結果 ：形態素（文字列）とその形態素の特徴（文字列）をタプルにまとめたもの
+#       を、文章の形態素の数分だけ集めたself.surface_feature_TL（リスト）
+#       ※TLとはタプルのリストの意味
+#注意 ：  
+#       MeCabは同時に複数のTaggerインスタンスを持てない（上書きは可）ので
+#       2つの文の品詞情報を比較、みたいな事をしたい時用に
+#       情報の一時保管先としてタプルのリストを用意した。
+class Text_parser():
 	def __init__(self,text):
 		import sys
 		import MeCab
@@ -36,7 +43,7 @@ class WordInfo():
 class Technical_term_translater():
 	def  __init__(self,text):
 		self.translated_text=""#インスタンス変数
-		surface_feature_TL=WordInfo(text).surface_feature_TL.copy()	
+		surface_feature_TL=Text_parser(text).surface_feature_TL.copy()	
 		import csv
 		import sys
 		#介護用語のサ変リスト
@@ -67,11 +74,13 @@ class Technical_term_translater():
 				s1=s1+s2
 				#「する」は消す
 				del surface_feature_TL[i+1]
-			elif (s1 in sahenList) and ("。" in f2):
+			elif (s1 in sahenList) and ("。" in f2) or ("EOF" in f2):
 				s1=s1+"しました"
 				del surface_feature_TL[i+1]
 			else:
 				pass
+
+			##文語的な助詞を口語的な助詞に直す→介護福祉士試験の日本語提言に基く
 			if s1 in kaigoDict:
 				surface_feature_TL[i]=(kaigoDict[s1],"名詞,一般,*,*,*,*,-,-,-")
 			elif "助詞,副助詞,*,*,*,*,のみ,ノミ,ノミ" in f1:
@@ -87,41 +96,41 @@ class Technical_term_translater():
 			elif ('助詞,格助詞,連語,*,*,*,により,ニヨリ,ニヨリ' in f1):
 				surface_feature_TL[i]=('によって', '助詞,格助詞,連語,*,*,*,によって,ニヨッテ,ニヨッテ' )
 
+			#サ変名詞＋有りを 例えば変更あり→変更がありました に変換
+			if ("名詞,サ変接続,*,*,*,*," in f1) and ("有り" in s2) or ("無し" in s2) :
+				surface_feature_TL.insert (i+1,('が', '接続詞,*,*,*,*,*,が,ガ,ガ'))
 
 			####文章を短くする####
 
 			####ですます調####
 			##3形態素にまたがる処理
-#			elif (i <len(textInfo)-2):
-#				f3=textInfo[i+2][1]
-#				s3=textInfo[i+2][0]
-#				
-#過去形はまだできてない				if ('動詞' in s1) and ('た' in s2) and ('。' in s3):#勝った→勝ちました
-#					if ('っ' in s1 ) and ('連用タ接続' in f1):
-#						surface_feature_TL[i] = (s1[0:-1]+chr(ord(s1[-1])-2),f1.replace('連用タ接続','連用形'))
-#					surface_feature_TL.insert (i+1,'まし', '助動詞,*,*,*,特殊・マス,連用形,ます,マシ,マシ')		
-			elif ('。' in f2):
-				print(s1+s2)
-				if ('動詞,自立' in f1):
-					if ('五段・タ行' in f1) :#勝つ→勝ちました
-						surface_feature_TL[i] = (s1[0:-1]+chr(ord(s1[-1])-3),f1.replace('基本','連用'))
+			if ('。' in f2) or ('EOS' in f2) or ("助動詞,*,*,*,特殊・タ,基本形,た,タ,タ" in f2):
+				if ('動詞,自立' in f1) and not(s1 == "まし") or ("一段" in f1):#一段で「食べている」とか、「飲まれる」とかをカバー
+					kihonkei = f1.split(",")[6]
+					print(kihonkei)
+					if ('五段・タ行' in f1) :#勝つ→勝ちます
+						surface_feature_TL[i] = (kihonkei[0:-1]+chr(ord(kihonkei[-1])-3),f1.replace('基本','連用'))
 						## 本当は形態素情報のうちの読みの部分も書き換えないといけない。						
-						## 現状は実害ないけどのちのちバグの温床になる可能性があるので
+						## 現状は実害ないけどのちのちバグの温床になる気が物凄いするので
 						# 余裕があれば直す事
 					elif ("五段・ワ行促音便" in f1) or ("五段・サ行" in f1) or ('五段・カ行促音便' in  f1) :
-						surface_feature_TL[i] = (s1[0:-1]+chr(ord(s1[-1])-2),f1.replace('基本','連用'))					
+						surface_feature_TL[i] = (kihonkei[0:-1]+chr(ord(kihonkei[-1])-2),f1.replace('基本','連用'))					
+					elif ("五段・ラ行" in f1) :#有り→有ります
+						surface_feature_TL[i] = (kihonkei[0:-1]+chr(ord(kihonkei[-1])-1), f1.replace('基本','連用'))					
 					elif ("五段" in f1) :#出す→出しました
-						surface_feature_TL[i] = (s1[0:-1]+chr(ord(s1[-1])-1),f1.replace('基本','連用'))
+						surface_feature_TL[i] = (kihonkei[0:-1]+chr(ord(kihonkei[-1])-1),f1.replace('基本','連用'))
 					elif ("一段" in f1):#見る→見ました
-						surface_feature_TL[i] = (s1[0:-1],f1.replace('基本','連用'))
+						surface_feature_TL[i] = (kihonkei[0:-1], f1.replace('基本','連用'))
 					elif ('サ変' in f1 ):
 						surface_feature_TL[i] = ('し','し', '動詞,自立,*,*,サ変・スル,連用形,する,シ,シ')
 					elif ("カ変・クル" in f1):
 						surface_feature_TL[i] =("き",'動詞,自立,*,*,カ変・クル,連用形,くる,キ,キ')
 					elif ("カ変・来ル" in f1):
 						surface_feature_TL[i] =("来",'動詞,自立,*,*,カ変・来ル,連用形,来る,キ,キ')
-					surface_feature_TL.insert(i+1,('ます', '助動詞,*,*,*,特殊・マス,基本形,ます,マス,マス'))
-
+					if ("助動詞,*,*,*,特殊・タ,基本形,た,タ,タ" in f2):#勝った→勝ちました
+						surface_feature_TL.insert(i+1,('まし', '動詞,自立,*,*,五段・サ行,連用形,ます,マシ,マシ'))
+					else:#勝つ→勝ちます
+						surface_feature_TL.insert(i+1,('ます', '助動詞,*,*,*,特殊・マス,基本形,ます,マス,マス'))
 				####サ変名詞止めをやめさせる####
 				elif ('名詞,サ変接続' in f1 ):
 					surface_feature_TL.insert(i+1,('し', '動詞,自立,*,*,サ変・スル,連用形,する,シ,シ'))
@@ -131,7 +140,10 @@ class Technical_term_translater():
 					surface_feature_TL.insert(i+1,('です', '助動詞,*,*,*,特殊・デス,基本形,です,デス,デス'))
 				####形容詞止めをやめさせる####
 				elif ('形容詞' in f1 ):
-					surface_feature_TL.insert(i+1,('です', '助動詞,*,*,*,特殊・デス,基本形,です,デス,デス'))	
+					if ("助動詞,*,*,*,特殊・タ,基本形,た,タ,タ" in f2):
+						surface_feature_TL.insert(i+2,('です', '助動詞,*,*,*,特殊・デス,基本形,です,デス,デス'))	
+					else:
+						surface_feature_TL.insert(i+1,('です', '助動詞,*,*,*,特殊・デス,基本形,です,デス,デス'))	
 			i+=1
 		for x in surface_feature_TL:
 			self.translated_text+=x[0]
@@ -161,8 +173,8 @@ class General_term_ranslater():
 		#まずは、｛難しい非専門用語：やさしい日本語｝の対を1組作る関数を定義
 		def make_proposed_general_term_dict(t1,t2):
 			#文章を2つ用意して、品詞分解する
-			w1=WordInfo(t1).surface_feature_TL
-			w2=WordInfo(t2).surface_feature_TL
+			w1=Text_parser(t1).surface_feature_TL
+			w2=Text_parser(t2).surface_feature_TL
 			proposed_general_term_dict={}
 			count=0
 			words=[]
@@ -239,7 +251,7 @@ def wakatigaki(text):
 
 
 
-
+#辞書に登録された語を元に翻訳を行う
 class Users_term_ranslater():
 	def translate_by_users_dict(self,text):
 		from record.models import Technical_noun

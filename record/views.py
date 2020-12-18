@@ -200,6 +200,15 @@ def check_translate(request):
     )
     if request.method =="POST":
         formset=RecordFormSet(request.POST)
+        instances=formset.save(commit=False)
+        i=0
+        ruby_maker=Ruby_maker()
+        for file in instances:
+            postKey="form-"+str(i)+"-notice"
+            file.translated_notice = Translater(request.POST[postKey]).translated_text
+            file.ruby_translated_notice = ruby_maker.output(file.translated_notice)
+            file.register()
+            i+=1
         formset.save()
         #今回変換したレコードを以降表示しない
         records=Record.objects.filter(isTranslated=False)
